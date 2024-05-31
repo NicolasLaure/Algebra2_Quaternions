@@ -21,7 +21,7 @@ namespace customMath
         #endregion
 
         #region DefaultValues
-        public static MyQuaternion identity { get { throw new NotImplementedException(); } }
+        public static MyQuaternion identity { get { return new MyQuaternion(0, 0, 0, 1); } }
         #endregion
 
         #region Constructors
