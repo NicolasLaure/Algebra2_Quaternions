@@ -27,7 +27,10 @@ namespace customMath
         #region Constructors
         public MyQuaternion(float x, float y, float z, float w)
         {
-            throw new NotImplementedException();
+            this.x = x;
+            this.y = y;
+            this.z = z;
+            this.w = w;
         }
         #endregion
 
