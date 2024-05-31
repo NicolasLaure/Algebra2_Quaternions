@@ -150,7 +150,6 @@ namespace customMath
             if (!(other is MyQuaternion)) return false;
             return Equals((MyQuaternion)other);
         }
-
         public string ToString(string format, IFormatProvider formatProvider)
         {
             return $"{x}, {y}, {z}, {w}";
