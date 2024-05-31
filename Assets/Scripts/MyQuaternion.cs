@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace customMath
 {
-    public class MyQuaternion : IEquatable<MyQuaternion>
+    public class MyQuaternion : IEquatable<MyQuaternion>, IFormattable
     {
         #region Variables
         public float x;
@@ -149,6 +149,11 @@ namespace customMath
         {
             if (!(other is MyQuaternion)) return false;
             return Equals((MyQuaternion)other);
+        }
+
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            return $"{x}, {y}, {z}, {w}";
         }
         #endregion
     }
