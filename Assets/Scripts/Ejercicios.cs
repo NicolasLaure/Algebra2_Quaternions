@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class Ejercicios : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private EjerciciosEnum currentExercise;
+    [SerializeField] private float angle;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        switch (currentExercise)
+        {
+            case EjerciciosEnum.Uno:
+                break;
+            case EjerciciosEnum.Dos:
+                break;
+            case EjerciciosEnum.Tres:
+                break;
+            default:
+                break;
+        }
     }
 }
