@@ -140,11 +140,12 @@ namespace customMath
         #region Internals
         public bool Equals(MyQuaternion other)
         {
-            throw new NotImplementedException();
+            return x == other.x && y == other.y && z == other.z && w == other.w;
         }
         public override bool Equals(object other)
         {
-            throw new NotImplementedException();
+            if (!(other is MyQuaternion)) return false;
+            return Equals((MyQuaternion)other);
         }
         #endregion
     }
