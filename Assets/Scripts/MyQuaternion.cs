@@ -12,7 +12,18 @@ namespace customMath
         public float z;
         public float w;
 
-        public Vector3 eulerAngles { get { throw new NotImplementedException(); } set { throw new NotImplementedException(); } }
+        public Vector3 eulerAngles
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                MyQuaternion q = Euler(value);
+                this.Set(q.x, q.y, q.z, q.w);
+            }
+        }
         public float Sqrmagnitude { get { return w * w + x * x + y * y + z * z; } }
         public float magnitude { get { return MathF.Sqrt(Sqrmagnitude); } }
         public MyQuaternion normalized { get { return new MyQuaternion(x / magnitude, y / magnitude, z / magnitude, w / magnitude); } }

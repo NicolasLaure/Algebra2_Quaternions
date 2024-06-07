@@ -504,14 +504,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 216afb1198cd8664190f4f9c88e2113c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myQuat:
-    x: 1.32
-    y: 0
-    z: -0.38
-    w: 0.16
-  quaternion: {x: 1.32, y: 0, z: -0.38, w: 0.16}
+  myQuatA:
+    x: 0.23
+    y: 0.1
+    z: 0.45
+    w: 1
+  myQuatB:
+    x: 0.1
+    y: 0.57
+    z: 0.3
+    w: 1
+  quaternionA: {x: 0, y: 0, z: 0, w: 1}
+  quaternionB: {x: 0, y: 0, z: 0, w: 1}
   myQuatObject: {fileID: 1070992081}
   quaternionObject: {fileID: 1783589182}
+  eulerAngles: {x: 35, y: 12.5, z: 40}
 --- !u!4 &1441186265
 Transform:
   m_ObjectHideFlags: 0
