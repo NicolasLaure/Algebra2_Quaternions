@@ -44,7 +44,16 @@ namespace customMath
         }
         public static MyQuaternion operator *(MyQuaternion lhs, MyQuaternion rhs)
         {
-            throw new NotImplementedException();
+            //    a.w* b.w - a.x * b.x - a.y * b.y - a.z * b.z,  // 1
+            //    a.w* b.x + a.x * b.w + a.y * b.z - a.z * b.y,  // i
+            //    a.w* b.y - a.x * b.z + a.y * b.w + a.z * b.x,  // j
+            //    a.w* b.z + a.x * b.y - a.y * b.x + a.z * b.w   // k
+
+            return new MyQuaternion(
+                                    lhs.w * rhs.x + lhs.x * rhs.w + lhs.y * rhs.z - lhs.z * rhs.y,
+                                    lhs.w * rhs.y - lhs.x * rhs.z + lhs.y * rhs.w + lhs.z * rhs.x,
+                                    lhs.w * rhs.z + lhs.x * rhs.y - lhs.y * rhs.x + lhs.z * rhs.w,
+                                    lhs.w * rhs.w - lhs.x * rhs.x - lhs.y * rhs.y - lhs.z * rhs.z);
         }
         public static bool operator ==(MyQuaternion lhs, MyQuaternion rhs)
         {
