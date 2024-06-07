@@ -80,7 +80,16 @@ namespace customMath
         }
         public static MyQuaternion Euler(Vector3 euler)
         {
-            throw new NotImplementedException();
+            MyQuaternion qx = identity;
+            MyQuaternion qy = identity;
+            MyQuaternion qz = identity;
+
+            float halfAngleToRadians = Mathf.Deg2Rad * 0.5f;
+            qz.Set(0, 0, MathF.Sin(euler.z * halfAngleToRadians), MathF.Cos(euler.z * halfAngleToRadians));
+            qx.Set(MathF.Sin(euler.x * halfAngleToRadians), 0, 0, MathF.Cos(euler.x * halfAngleToRadians));
+            qy.Set(0, MathF.Sin(euler.y * halfAngleToRadians), 0, MathF.Cos(euler.y * halfAngleToRadians));
+
+            return qy * qx * qz;
         }
         public static MyQuaternion Euler(float x, float y, float z)
         {

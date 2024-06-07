@@ -13,6 +13,8 @@ public class Tester : MonoBehaviour
     [SerializeField] GameObject myQuatObject;
     [SerializeField] GameObject quaternionObject;
 
+    [SerializeField] private Vector3 eulerAngles;
+
     private void Awake()
     {
         quaternionA = myQuatA.toQuaternion;
@@ -30,7 +32,10 @@ public class Tester : MonoBehaviour
         //Debug.Log($"My quat eulers are: {myQuat.eulerAngles}");
         //Debug.Log($"Unity Quaternion eulers are: {quaternion.eulerAngles}");
 
-        Debug.Log($"The multiplication between myquat A and B is: {myQuatA * myQuatB}");
-        Debug.Log($"The multiplication between unity Quaternions A and B is: {quaternionA * quaternionB}");
+        myQuatA = MyQuaternion.Euler(eulerAngles);
+        quaternionA = Quaternion.Euler(eulerAngles);
+        Debug.Log($"MyQuaternion based on euler angles returns: {myQuatA}");
+        Debug.Log($"Quaternion based on euler angles returns: {quaternionA}");
+
     }
 }
