@@ -171,6 +171,11 @@ namespace customMath
         {
             return $"{x}, {y}, {z}, {w}";
         }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(x, y, z, w, eulerAngles, normalized);
+        }
         #endregion
     }
 }
