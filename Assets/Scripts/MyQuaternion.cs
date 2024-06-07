@@ -13,7 +13,9 @@ namespace customMath
         public float w;
 
         public Vector3 eulerAngles { get { throw new NotImplementedException(); } set { throw new NotImplementedException(); } }
-        public MyQuaternion normalized { get { throw new NotImplementedException(); } }
+        public float Sqrmagnitude { get { return w * w + x * x + y * y + z * z; } }
+        public float magnitude { get { return MathF.Sqrt(Sqrmagnitude); } }
+        public MyQuaternion normalized { get { return new MyQuaternion(x / magnitude, y / magnitude, z / magnitude, w / magnitude); } }
         public Quaternion toQuaternion { get { return new Quaternion(x, y, z, w); } set { x = value.x; y = value.y; z = value.z; w = value.w; } }
         #endregion
 
