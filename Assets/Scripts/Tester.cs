@@ -34,8 +34,9 @@ public class Tester : MonoBehaviour
 
         myQuatA.eulerAngles = eulerAngles;
         quaternionA.eulerAngles = eulerAngles;
-        Debug.Log($"MyQuaternion based on euler angles returns: {myQuatA}");
-        Debug.Log($"Quaternion based on euler angles returns: {quaternionA}");
-
+        Debug.Log($"MyQuaternion based on euler angles returns: {MyQuaternion.Euler(eulerAngles.x,eulerAngles.y,eulerAngles.z)}");
+        Debug.Log($"MyQuaternion based on euler angles returns: {Quaternion.Euler(eulerAngles.x,eulerAngles.y,eulerAngles.z)}");
+        //Debug.Log($"MyQuaternion based on euler angles returns: {myQuatA}");
+        //Debug.Log($"Quaternion based on euler angles returns: {quaternionA}");
     }
 }
