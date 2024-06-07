@@ -121,10 +121,6 @@ namespace customMath
         {
             throw new NotImplementedException();
         }
-        public void SetEulerRotation(Vector3 euler)
-        {
-            throw new NotImplementedException();
-        }
         public void SetFromToRotation(Vector3 fromDirection, Vector3 toDirection)
         {
             throw new NotImplementedException();
