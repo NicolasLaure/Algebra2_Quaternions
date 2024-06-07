@@ -14,6 +14,7 @@ namespace customMath
 
         public Vector3 eulerAngles { get { throw new NotImplementedException(); } set { throw new NotImplementedException(); } }
         public MyQuaternion normalized { get { throw new NotImplementedException(); } }
+        public Quaternion toQuaternion { get { return new Quaternion(x, y, z, w); } set { x = value.x; y = value.y; z = value.z; w = value.w; } }
         #endregion
 
         #region Constants
