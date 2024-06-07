@@ -11,7 +11,6 @@ namespace customMath
         public float z;
         public float w;
 
-        public float this[int index] { get { throw new NotImplementedException(); } set { throw new NotImplementedException(); } }
         public Vector3 eulerAngles { get { throw new NotImplementedException(); } set { throw new NotImplementedException(); } }
         public MyQuaternion normalized { get { throw new NotImplementedException(); } }
         #endregion
@@ -141,6 +140,24 @@ namespace customMath
         #endregion
 
         #region Internals
+        public float this[int index]
+        {
+            get
+            {
+                float[] values = { x, y, z, w };
+                return values[index];
+            }
+            set
+            {
+                float[] values = { x, y, z, w };
+                values[index] = value;
+
+                this.x = values[0];
+                this.y = values[1];
+                this.z = values[2];
+                this.w = values[3];
+            }
+        }
         public bool Equals(MyQuaternion other)
         {
             return x == other.x && y == other.y && z == other.z && w == other.w;
