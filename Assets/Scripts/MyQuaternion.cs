@@ -44,6 +44,7 @@ namespace customMath
         }
         public static MyQuaternion operator *(MyQuaternion lhs, MyQuaternion rhs)
         {
+            // https://stackoverflow.com/questions/19956555/how-to-multiply-two-quaternions
             //    a.w* b.w - a.x * b.x - a.y * b.y - a.z * b.z,  // 1
             //    a.w* b.x + a.x * b.w + a.y * b.z - a.z * b.y,  // i
             //    a.w* b.y - a.x * b.z + a.y * b.w + a.z * b.x,  // j
@@ -80,6 +81,8 @@ namespace customMath
         }
         public static MyQuaternion Euler(Vector3 euler)
         {
+
+            // pointer to Cuaterniones_y_unity.pptm.pdf page 8
             MyQuaternion qx = identity;
             MyQuaternion qy = identity;
             MyQuaternion qz = identity;
