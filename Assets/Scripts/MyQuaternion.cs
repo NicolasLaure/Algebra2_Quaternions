@@ -126,6 +126,14 @@ namespace customMath
             z /= originalMagnitude;
             w /= originalMagnitude;
         }
+
+        public void Set(float newX, float newY, float newZ, float newW)
+        {
+            x = newX;
+            y = newY;
+            z = newZ;
+            w = newW;
+        }
         public void SetFromToRotation(Vector3 fromDirection, Vector3 toDirection)
         {
             throw new NotImplementedException();
