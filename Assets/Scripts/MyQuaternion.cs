@@ -16,7 +16,31 @@ namespace customMath
         {
             get
             {
-                throw new NotImplementedException();
+                // pointer to Cuaterniones_y_unity.pptm.pdf page 9-14
+
+                float xValue = x * w - y * z;
+                Vector3 result = Vector3.zero;
+
+                if (xValue > 0.4999f * sqrMagnitude)
+                {
+                    result.y = 2f * Mathf.Atan2(y, x);
+                    result.x = Mathf.PI / 2;
+                    result.z = 0;
+                    return result * Mathf.Rad2Deg;
+                }
+                if (xValue < -0.4999f * sqrMagnitude)
+                {
+                    result.y = -2f * Mathf.Atan2(y, x);
+                    result.x = -Mathf.PI / 2;
+                    result.z = 0;
+                    return result * Mathf.Rad2Deg;
+                }
+
+                MyQuaternion quaternion = new MyQuaternion(w, z, x, y);
+                result.y = Mathf.Atan2(2f * quaternion.x * quaternion.w + 2f * quaternion.y * quaternion.z, 1f - 2f * (quaternion.z * quaternion.z + quaternion.w * quaternion.w));
+                result.x = Mathf.Asin(2f * (quaternion.x * quaternion.z - quaternion.w * quaternion.y));
+                result.z = Mathf.Atan2(2f * quaternion.x * quaternion.y + 2f * quaternion.z * quaternion.w, 1f - 2f * (quaternion.y * quaternion.y + quaternion.z * quaternion.z));
+                return result * Mathf.Rad2Deg;
             }
             set
             {
@@ -24,8 +48,8 @@ namespace customMath
                 this.Set(q.x, q.y, q.z, q.w);
             }
         }
-        public float Sqrmagnitude { get { return w * w + x * x + y * y + z * z; } }
-        public float magnitude { get { return MathF.Sqrt(Sqrmagnitude); } }
+        public float sqrMagnitude { get { return w * w + x * x + y * y + z * z; } }
+        public float magnitude { get { return MathF.Sqrt(sqrMagnitude); } }
         public MyQuaternion normalized { get { return new MyQuaternion(x / magnitude, y / magnitude, z / magnitude, w / magnitude); } }
         public Quaternion toQuaternion { get { return new Quaternion(x, y, z, w); } set { x = value.x; y = value.y; z = value.z; w = value.w; } }
         #endregion
