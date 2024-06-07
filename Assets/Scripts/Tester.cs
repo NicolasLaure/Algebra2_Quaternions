@@ -5,13 +5,22 @@ using customMath;
 
 public class Tester : MonoBehaviour
 {
-    MyQuaternion myQuat;
-    Quaternion quaternion;
+    [SerializeField] MyQuaternion myQuat = MyQuaternion.identity;
+    [SerializeField] Quaternion quaternion;
+
+    [SerializeField] GameObject myQuatObject;
+    [SerializeField] GameObject quaternionObject;
+
+    private void Update()
+    {
+        myQuatObject.transform.rotation = myQuat.toQuaternion;
+        quaternionObject.transform.rotation = quaternion;
+    }
 
     [ContextMenu("Test")]
     public void TestQuaternion()
     {
-        Debug.Log(MyQuaternion.identity);
-        Debug.Log(Quaternion.identity);
+        Debug.Log($"My quat eulers are: {myQuat.eulerAngles}");
+        Debug.Log($"Unity Quaternion eulers are: {quaternion.eulerAngles}");
     }
 }
