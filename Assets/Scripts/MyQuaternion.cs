@@ -85,6 +85,7 @@ namespace customMath
             //    a.w* b.y - a.x * b.z + a.y * b.w + a.z * b.x,  // j
             //    a.w* b.z + a.x * b.y - a.y * b.x + a.z * b.w   // k
 
+            // rearrange it to fit into my format x y z w in this case i j k 1
             return new MyQuaternion(
                                     lhs.w * rhs.x + lhs.x * rhs.w + lhs.y * rhs.z - lhs.z * rhs.y,
                                     lhs.w * rhs.y - lhs.x * rhs.z + lhs.y * rhs.w + lhs.z * rhs.x,
