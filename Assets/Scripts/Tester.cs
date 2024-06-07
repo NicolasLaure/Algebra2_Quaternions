@@ -20,7 +20,9 @@ public class Tester : MonoBehaviour
     [ContextMenu("Test")]
     public void TestQuaternion()
     {
-        Debug.Log($"My quat eulers are: {myQuat.eulerAngles}");
-        Debug.Log($"Unity Quaternion eulers are: {quaternion.eulerAngles}");
+        //Debug.Log($"My quat eulers are: {myQuat.eulerAngles}");
+        //Debug.Log($"Unity Quaternion eulers are: {quaternion.eulerAngles}");
+        Debug.Log($"My quat normalized is: { MyQuaternion.Normalize(myQuat)}");
+        Debug.Log($"Unity Quaternion normalized is: {Quaternion.Normalize(quaternion)}");
     }
 }

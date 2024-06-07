@@ -103,7 +103,7 @@ namespace customMath
         }
         public static MyQuaternion Normalize(MyQuaternion q)
         {
-            throw new NotImplementedException();
+            return new MyQuaternion(q.x / q.magnitude, q.y / q.magnitude, q.z / q.magnitude, q.w / q.magnitude);
         }
         public static MyQuaternion RotateTowards(MyQuaternion from, MyQuaternion to, float maxDegreesDelta)
         {
@@ -119,7 +119,12 @@ namespace customMath
         }
         public void Normalize()
         {
-            throw new NotImplementedException();
+            float originalMagnitude = magnitude;
+
+            x /= originalMagnitude;
+            y /= originalMagnitude;
+            z /= originalMagnitude;
+            w /= originalMagnitude;
         }
         public void SetFromToRotation(Vector3 fromDirection, Vector3 toDirection)
         {
