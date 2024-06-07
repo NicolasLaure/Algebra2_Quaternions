@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace customMath
 {
+    [Serializable]
     public class MyQuaternion : IEquatable<MyQuaternion>, IFormattable
     {
         #region Variables
