@@ -117,7 +117,9 @@ namespace customMath
         #region Functions
         public static float Angle(MyQuaternion a, MyQuaternion b)
         {
-            throw new NotImplementedException();
+            //  Pointer to Cuaterniones_y_unity.pptm.pdf Page 15
+            float dotAbs = Mathf.Abs(Dot(a, b));
+            return a == b ? 0.0f : Mathf.Acos(Mathf.Min(dotAbs, 1.0f)) * 2 * Mathf.Rad2Deg;
         }
         public static MyQuaternion AngleAxis(float angle, Vector3 axis)
         {
