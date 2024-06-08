@@ -94,11 +94,17 @@ namespace customMath
         }
         public static bool operator ==(MyQuaternion lhs, MyQuaternion rhs)
         {
-            throw new NotImplementedException();
+            float diff_x = lhs.x - rhs.x;
+            float diff_y = lhs.y - rhs.y;
+            float diff_z = lhs.z - rhs.z;
+            float diff_w = lhs.w - rhs.w;
+            float sqrmag = diff_x * diff_x + diff_y * diff_y + diff_z * diff_z + diff_w * diff_w;
+            //Checks if the difference between both vectors is close to zero
+            return sqrmag < kEpsilon * kEpsilon;
         }
         public static bool operator !=(MyQuaternion lhs, MyQuaternion rhs)
         {
-            throw new NotImplementedException();
+            return !(lhs == rhs);
         }
         #endregion
 
