@@ -125,7 +125,7 @@ namespace customMath
         }
         public static float Dot(MyQuaternion a, MyQuaternion b)
         {
-            throw new NotImplementedException();
+            return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
         }
         public static MyQuaternion Euler(Vector3 euler)
         {
