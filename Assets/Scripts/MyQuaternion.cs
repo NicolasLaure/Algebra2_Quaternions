@@ -162,7 +162,12 @@ namespace customMath
         }
         public static MyQuaternion FromToRotation(Vector3 fromDirection, Vector3 toDirection)
         {
-            throw new NotImplementedException();
+            //Creates the axis based on the perpendicular vector to both (We'll rotate around it)
+            Vector3 axis = Vector3.Cross(fromDirection, toDirection);
+            //Gets the angle between the vectors
+            float angle = Vector3.Angle(fromDirection, toDirection);
+            //Returns the rotation in angles around the previously calculated axis
+            return AngleAxis(angle, axis.normalized);
         }
         public static MyQuaternion Inverse(MyQuaternion rotation)
         {
@@ -219,7 +224,13 @@ namespace customMath
         }
         public void SetFromToRotation(Vector3 fromDirection, Vector3 toDirection)
         {
-            throw new NotImplementedException();
+            Vector3 axis = Vector3.Cross(fromDirection, toDirection);
+            float angle = Vector3.Angle(fromDirection, toDirection);
+            MyQuaternion result = AngleAxis(angle, axis.normalized);
+            x = result.x;
+            y = result.y;
+            z = result.z;
+            w = result.w;
         }
         public void SetLookRotation(Vector3 view)
         {
