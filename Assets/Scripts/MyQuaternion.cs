@@ -123,7 +123,10 @@ namespace customMath
         }
         public static MyQuaternion AngleAxis(float angle, Vector3 axis)
         {
-            throw new NotImplementedException();
+            //  Pointer to Cuaterniones_y_unity.pptm.pdf Page 16
+            axis.Normalize();
+            axis *= Mathf.Sin(angle * Mathf.Deg2Rad * 0.5f);
+            return new MyQuaternion(axis.x, axis.y, axis.z, Mathf.Cos(angle * Mathf.Deg2Rad * 0.5f));
         }
         public static float Dot(MyQuaternion a, MyQuaternion b)
         {
