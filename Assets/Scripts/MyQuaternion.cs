@@ -278,7 +278,17 @@ namespace customMath
         }
         public void ToAngleAxis(out float angle, out Vector3 axis)
         {
-            throw new NotImplementedException();
+            Normalize();
+            angle = 2.0f * Mathf.Acos(w) * Mathf.Rad2Deg;
+            float mag = Mathf.Sqrt(1.0f - w * w);
+            if (mag > 0.0001f)
+            {
+                axis = new Vector3(x, y, z) / mag;
+            }
+            else
+            {
+                axis = new Vector3(1, 0, 0);
+            }
         }
         #endregion
 
