@@ -31,12 +31,8 @@ public class Tester : MonoBehaviour
     {
         //Debug.Log($"My quat eulers are: {myQuat.eulerAngles}");
         //Debug.Log($"Unity Quaternion eulers are: {quaternion.eulerAngles}");
-        Vector3 dirA = new Vector3(10, 0, 3);
-        Vector3 dirB = new Vector3(2, 4, -1);
-        myQuatA.SetFromToRotation(dirA, dirB);
-        quaternionA.SetFromToRotation(dirA, dirB);
-        Debug.Log(myQuatA);
-        Debug.Log(quaternionA);
+        Debug.Log($"My Quat lerp: {MyQuaternion.Lerp(myQuatA, myQuatB, 0.25f)} ");
+        Debug.Log($"Quaternion lerp: {Quaternion.Lerp(quaternionA, quaternionB, 0.25f)} ");
         //Debug.Log($"MyQuaternion based on euler angles returns: {myQuatA}");
         //Debug.Log($"Quaternion based on euler angles returns: {quaternionA}");
     }

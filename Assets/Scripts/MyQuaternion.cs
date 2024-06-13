@@ -175,11 +175,47 @@ namespace customMath
         }
         public static MyQuaternion Lerp(MyQuaternion a, MyQuaternion b, float t)
         {
-            throw new NotImplementedException();
+            MyQuaternion result = identity;
+            t = Mathf.Clamp01(t);
+            float timeLeft = 1 - t;
+            if (Dot(a, b) >= 0)
+            {
+                result.x = (timeLeft * a.x) + (t * b.x);
+                result.y = (timeLeft * a.y) + (t * b.y);
+                result.z = (timeLeft * a.z) + (t * b.z);
+                result.w = (timeLeft * a.w) + (t * b.w);
+            }
+            else
+            {
+                result.x = (timeLeft * a.x) - (t * b.x);
+                result.y = (timeLeft * a.y) - (t * b.y);
+                result.z = (timeLeft * a.z) - (t * b.z);
+                result.w = (timeLeft * a.w) - (t * b.w);
+            }
+            result.Normalize();
+            return result;
         }
         public static MyQuaternion LerpUnclamped(MyQuaternion a, MyQuaternion b, float t)
         {
-            throw new NotImplementedException();
+            MyQuaternion result = identity;
+
+            float timeLeft = 1 - t;
+            if (Dot(a, b) >= 0)
+            {
+                result.x = (timeLeft * a.x) + (t * b.x);
+                result.y = (timeLeft * a.y) + (t * b.y);
+                result.z = (timeLeft * a.z) + (t * b.z);
+                result.w = (timeLeft * a.w) + (t * b.w);
+            }
+            else
+            {
+                result.x = (timeLeft * a.x) - (t * b.x);
+                result.y = (timeLeft * a.y) - (t * b.y);
+                result.z = (timeLeft * a.z) - (t * b.z);
+                result.w = (timeLeft * a.w) - (t * b.w);
+            }
+            result.Normalize();
+            return result;
         }
         public static MyQuaternion LookRotation(Vector3 forward)
         {

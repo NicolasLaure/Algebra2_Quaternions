@@ -505,16 +505,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myQuatA:
-    x: 0.2
-    y: -0.44
-    z: 0.293489
-    w: 0.9020707
+    x: 0.1878562
+    y: -0.4132836
+    z: 0.2756686
+    w: 0.8472978
   myQuatB:
     x: 0.3164028
     y: -0.004669559
     z: 0.61
     w: 0.9020707
-  quaternionA: {x: 0.2, y: -0.44, z: 0.293489, w: 0.9020707}
+  quaternionA: {x: 0.1878562, y: -0.4132836, z: 0.2756686, w: 0.8472978}
   quaternionB: {x: 0.3164028, y: -0.004669559, z: 0.61, w: 0.9020707}
   myQuatObject: {fileID: 1070992081}
   quaternionObject: {fileID: 1783589182}
