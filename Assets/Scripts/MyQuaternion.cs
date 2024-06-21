@@ -75,10 +75,25 @@ namespace customMath
         #region Operators
         public static Vector3 operator *(MyQuaternion rotation, Vector3 point)
         {
-            //qpq^-1
+            Vector4 firstColumn = new Vector4(2 * (rotation.w * rotation.w + rotation.x * rotation.x) - 1,
+                                              2 * (rotation.x * rotation.y + rotation.w * rotation.z),
+                                              2 * (rotation.x * rotation.z - rotation.w * rotation.y), 0);
 
+            Vector4 secondColumn = new Vector4(2 * (rotation.x * rotation.y - rotation.w * rotation.z),
+                                               2 * (rotation.w * rotation.w + rotation.y * rotation.y) - 1,
+                                               2 * (rotation.y * rotation.z + rotation.w * rotation.x), 0);
 
-            throw new NotImplementedException();
+            Vector4 thirdColumn = new Vector4(2 * (rotation.x * rotation.z + rotation.w * rotation.y),
+                                              2 * (rotation.y * rotation.z - rotation.w * rotation.x),
+                                              2 * (rotation.w * rotation.w + rotation.z * rotation.z) - 1, 0);
+
+            Vector4 fourthColumn = new Vector4(0, 0, 0, 1);
+
+            Matrix4x4 myRotationMatrix = new Matrix4x4(firstColumn, secondColumn, thirdColumn, fourthColumn);
+            Vector4 pointV4 = new Vector4(point.x, point.y, point.z, 1);
+
+            Vector4 result = myRotationMatrix * pointV4;
+            return new Vector3(result.x, result.y, result.z);
         }
         public static MyQuaternion operator *(MyQuaternion lhs, MyQuaternion rhs)
         {

@@ -14,6 +14,7 @@ public class Tester : MonoBehaviour
     [SerializeField] GameObject quaternionObject;
 
     [SerializeField] private Vector3 eulerAngles;
+    [SerializeField] private Vector3 point;
 
     private void Awake()
     {
@@ -31,8 +32,8 @@ public class Tester : MonoBehaviour
     {
         //Debug.Log($"My quat eulers are: {myQuat.eulerAngles}");
         //Debug.Log($"Unity Quaternion eulers are: {quaternion.eulerAngles}");
-        Debug.Log($"My Quat lerp: {MyQuaternion.Lerp(myQuatA, myQuatB, 0.25f)} ");
-        Debug.Log($"Quaternion lerp: {Quaternion.Lerp(quaternionA, quaternionB, 0.25f)} ");
+        Debug.Log($"My Quat point rotation: {myQuatA * point} ");
+        Debug.Log($"Quaternion point rotation: {quaternionA * point} ");
         //Debug.Log($"MyQuaternion based on euler angles returns: {myQuatA}");
         //Debug.Log($"Quaternion based on euler angles returns: {quaternionA}");
     }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using customMath;
 
 public class Ejercicios : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class Ejercicios : MonoBehaviour
     private Vector3 thirdPoint;
     private Vector3 fourthPoint;
 
-    Quaternion firstExerciseRotation = Quaternion.identity;
+    MyQuaternion firstExerciseRotation = MyQuaternion.identity;
     Quaternion secondExerciseRotation = Quaternion.identity;
     Quaternion thirdExerciseRotation = Quaternion.identity;
 
@@ -93,7 +94,7 @@ public class Ejercicios : MonoBehaviour
         switch (currentExercise)
         {
             case EjerciciosEnum.Uno:
-                firstExerciseRotation *= Quaternion.AngleAxis(angle, Vector3.up);
+                firstExerciseRotation *= MyQuaternion.AngleAxis(angle, Vector3.up);
                 SetVector(firstExerciseRotation * firstPoint, ref firstLine);
                 break;
             case EjerciciosEnum.Dos:
