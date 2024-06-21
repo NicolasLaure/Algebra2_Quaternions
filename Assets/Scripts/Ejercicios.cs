@@ -95,6 +95,13 @@ public class Ejercicios : MonoBehaviour
                 SetVector(firstExerciseRotation * firstPoint, ref firstLine);
                 break;
             case EjerciciosEnum.Dos:
+                secondExerciseRotation *= Quaternion.AngleAxis(angle, Vector3.up);
+
+                Vector3 firstPointRes = secondExerciseRotation * firstPoint;
+                Vector3 secondPointRes = secondExerciseRotation * secondPoint;
+                SetVector(firstPointRes, ref firstLine);
+                SetLine(firstPointRes, secondPointRes, ref secondLine);
+                SetLine(secondPointRes, secondExerciseRotation * thirdPoint, ref thirdLine);
                 break;
             case EjerciciosEnum.Tres:
                 break;
