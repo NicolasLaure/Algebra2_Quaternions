@@ -75,6 +75,9 @@ namespace customMath
         #region Operators
         public static Vector3 operator *(MyQuaternion rotation, Vector3 point)
         {
+            //https://automaticaddison.com/how-to-convert-a-quaternion-to-a-rotation-matrix/#Convert_a_Quaternion_to_a_Rotation_Matrix
+            //https://en.wikipedia.org/wiki/Rotation_matrix
+
             Vector4 firstColumn = new Vector4(2 * (rotation.w * rotation.w + rotation.x * rotation.x) - 1,
                                               2 * (rotation.x * rotation.y + rotation.w * rotation.z),
                                               2 * (rotation.x * rotation.z - rotation.w * rotation.y), 0);
