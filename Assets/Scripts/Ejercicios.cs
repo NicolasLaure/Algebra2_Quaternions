@@ -88,6 +88,8 @@ public class Ejercicios : MonoBehaviour
 
     private void UpdateExerciseLines()
     {
+        Vector3 firstPointRes;
+        Vector3 secondPointRes;
         switch (currentExercise)
         {
             case EjerciciosEnum.Uno:
@@ -97,13 +99,21 @@ public class Ejercicios : MonoBehaviour
             case EjerciciosEnum.Dos:
                 secondExerciseRotation *= Quaternion.AngleAxis(angle, Vector3.up);
 
-                Vector3 firstPointRes = secondExerciseRotation * firstPoint;
-                Vector3 secondPointRes = secondExerciseRotation * secondPoint;
+                firstPointRes = secondExerciseRotation * firstPoint;
+                secondPointRes = secondExerciseRotation * secondPoint;
                 SetVector(firstPointRes, ref firstLine);
                 SetLine(firstPointRes, secondPointRes, ref secondLine);
                 SetLine(secondPointRes, secondExerciseRotation * thirdPoint, ref thirdLine);
                 break;
             case EjerciciosEnum.Tres:
+                thirdExerciseRotation *= Quaternion.AngleAxis(angle, secondPoint);
+
+                firstPointRes = thirdExerciseRotation * firstPoint;
+                secondPointRes = Quaternion.Inverse(thirdExerciseRotation) * thirdPoint;
+                SetVector(firstPointRes, ref firstLine);
+                SetLine(firstPointRes, secondPoint, ref secondLine);
+                SetLine(secondPoint, secondPointRes, ref thirdLine);
+                SetLine(secondPointRes, fourthPoint, ref fourthLine);
                 break;
             default:
                 break;

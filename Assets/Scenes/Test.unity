@@ -148,13 +148,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 333046744}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1731222253, guid: b3ee08da18e21bb44b0dc6beac7543b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ejercicio: 0
-  angle: 0
+  ejercicio: 2
+  angle: 0.15
 --- !u!4 &333046746
 Transform:
   m_ObjectHideFlags: 0
@@ -182,8 +182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 280179f4d43026b498905de010f06f6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentExercise: 0
-  angle: 0
+  currentExercise: 2
+  angle: 0.15
   linePrefab: {fileID: 5034411145654722134, guid: 0afc389c43955344d9a613027c9f29df, type: 3}
   lineColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &705507993
