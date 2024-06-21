@@ -75,6 +75,9 @@ namespace customMath
         #region Operators
         public static Vector3 operator *(MyQuaternion rotation, Vector3 point)
         {
+            //qpq^-1
+
+
             throw new NotImplementedException();
         }
         public static MyQuaternion operator *(MyQuaternion lhs, MyQuaternion rhs)
@@ -123,8 +126,11 @@ namespace customMath
         }
         public static MyQuaternion AngleAxis(float angle, Vector3 axis)
         {
-            //  Pointer to Cuaterniones_y_unity.pptm.pdf Page 16
             axis.Normalize();
+            // we divide the angle by the amount of axis we operate minus one because the angle gets distributed through all the axis we operate
+            // this distribution takes place so the scalar is the amount of axis we can rotate around minus 1, making a 1D rotation not work by trying to divide by 0
+            // 2D has the angle divided by 1 so it can be simplified
+            // 3D has the angle divided by 2
             axis *= Mathf.Sin(angle * Mathf.Deg2Rad * 0.5f);
             return new MyQuaternion(axis.x, axis.y, axis.z, Mathf.Cos(angle * Mathf.Deg2Rad * 0.5f));
         }
