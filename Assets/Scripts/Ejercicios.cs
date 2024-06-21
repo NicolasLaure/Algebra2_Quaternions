@@ -27,8 +27,8 @@ public class Ejercicios : MonoBehaviour
     private Vector3 fourthPoint;
 
     MyQuaternion firstExerciseRotation = MyQuaternion.identity;
-    Quaternion secondExerciseRotation = Quaternion.identity;
-    Quaternion thirdExerciseRotation = Quaternion.identity;
+    MyQuaternion secondExerciseRotation = MyQuaternion.identity;
+    MyQuaternion thirdExerciseRotation = MyQuaternion.identity;
 
     #endregion
 
@@ -98,7 +98,7 @@ public class Ejercicios : MonoBehaviour
                 SetVector(firstExerciseRotation * firstPoint, ref firstLine);
                 break;
             case EjerciciosEnum.Dos:
-                secondExerciseRotation *= Quaternion.AngleAxis(angle, Vector3.up);
+                secondExerciseRotation *= MyQuaternion.AngleAxis(angle, Vector3.up);
 
                 firstPointRes = secondExerciseRotation * firstPoint;
                 secondPointRes = secondExerciseRotation * secondPoint;
@@ -107,10 +107,10 @@ public class Ejercicios : MonoBehaviour
                 SetLine(secondPointRes, secondExerciseRotation * thirdPoint, ref thirdLine);
                 break;
             case EjerciciosEnum.Tres:
-                thirdExerciseRotation *= Quaternion.AngleAxis(angle, secondPoint);
+                thirdExerciseRotation *= MyQuaternion.AngleAxis(angle, secondPoint);
 
                 firstPointRes = thirdExerciseRotation * firstPoint;
-                secondPointRes = Quaternion.Inverse(thirdExerciseRotation) * thirdPoint;
+                secondPointRes = MyQuaternion.Inverse(thirdExerciseRotation) * thirdPoint;
                 SetVector(firstPointRes, ref firstLine);
                 SetLine(firstPointRes, secondPoint, ref secondLine);
                 SetLine(secondPoint, secondPointRes, ref thirdLine);

@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 1731222253, guid: b3ee08da18e21bb44b0dc6beac7543b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ejercicio: 2
+  ejercicio: 0
   angle: 0.15
 --- !u!4 &333046746
 Transform:
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 280179f4d43026b498905de010f06f6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentExercise: 2
+  currentExercise: 0
   angle: 0.15
   linePrefab: {fileID: 5034411145654722134, guid: 0afc389c43955344d9a613027c9f29df, type: 3}
   lineColor: {r: 1, g: 0, b: 0, a: 1}
@@ -521,6 +521,7 @@ MonoBehaviour:
   myQuatObject: {fileID: 1070992081}
   quaternionObject: {fileID: 1783589182}
   eulerAngles: {x: 35, y: 12.5, z: 40}
+  point: {x: 10, y: -0.51, z: 2.19}
 --- !u!4 &1441186265
 Transform:
   m_ObjectHideFlags: 0
