@@ -521,7 +521,8 @@ MonoBehaviour:
   myQuatObject: {fileID: 1070992081}
   quaternionObject: {fileID: 1783589182}
   eulerAngles: {x: 35, y: 12.5, z: 40}
-  point: {x: 10, y: -0.51, z: 2.19}
+  point: {x: 4.18, y: 0.09, z: 2.19}
+  up: {x: 0.51, y: 0.21, z: -0.46}
 --- !u!4 &1441186265
 Transform:
   m_ObjectHideFlags: 0

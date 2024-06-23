@@ -33,8 +33,10 @@ public class Tester : MonoBehaviour
     {
         //Debug.Log($"My quat eulers are: {myQuat.eulerAngles}");
         //Debug.Log($"Unity Quaternion eulers are: {quaternion.eulerAngles}");
-        Debug.Log($"My Quat LookRotation: {MyQuaternion.LookRotation(point, up)} ");
-        Debug.Log($"Quaternion LookRotation: {Quaternion.LookRotation(point, up)} ");
+        myQuatA.SetLookRotation(point);
+        quaternionA.SetLookRotation(point);
+        Debug.Log($"My Quat LookRotation: {myQuatA} ");
+        Debug.Log($"Quaternion LookRotation: {quaternionA} ");
         //Debug.Log($"MyQuaternion based on euler angles returns: {myQuatA}");
         //Debug.Log($"Quaternion based on euler angles returns: {quaternionA}");
     }

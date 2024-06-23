@@ -404,11 +404,21 @@ namespace customMath
         }
         public void SetLookRotation(Vector3 view)
         {
-            throw new NotImplementedException();
+            MyQuaternion q = LookRotation(view);
+
+            this.x = q.x;
+            this.y = q.y;
+            this.z = q.z;
+            this.w = q.w;
         }
         public void SetLookRotation(Vector3 view, [UnityEngine.Internal.DefaultValue("Vector3.up")] Vector3 up)
         {
-            throw new NotImplementedException();
+            MyQuaternion q = LookRotation(view, up);
+
+            this.x = q.x;
+            this.y = q.y;
+            this.z = q.z;
+            this.w = q.w;
         }
         public void ToAngleAxis(out float angle, out Vector3 axis)
         {
