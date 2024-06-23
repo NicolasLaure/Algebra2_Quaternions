@@ -369,7 +369,25 @@ namespace customMath
         }
         public static MyQuaternion Slerp(MyQuaternion a, MyQuaternion b, float t)
         {
-            throw new NotImplementedException();
+            t = Mathf.Clamp01(t);
+            float cosAngle = MyQuaternion.Dot(a, b);
+
+            float angle = Mathf.Acos(Mathf.Abs(cosAngle));
+            float sinAngle = Mathf.Sin(angle);
+            float quatAWeight = Mathf.Sin(angle * (1.0f - t)) / sinAngle;
+            float quatBWeight = Mathf.Sin(angle * t) / sinAngle;
+
+            if (cosAngle < 0)
+                quatAWeight = -quatAWeight;
+
+            MyQuaternion res = MyQuaternion.identity;
+
+            res.x = quatAWeight * a.x + quatBWeight * b.x;
+            res.y = quatAWeight * a.y + quatBWeight * b.y;
+            res.z = quatAWeight * a.z + quatBWeight * b.z;
+            res.w = quatAWeight * a.w + quatBWeight * b.w;
+
+            return res;
         }
         public static MyQuaternion SlerpUnclamped(MyQuaternion a, MyQuaternion b, float t)
         {
