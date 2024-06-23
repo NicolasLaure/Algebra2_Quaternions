@@ -243,11 +243,121 @@ namespace customMath
         }
         public static MyQuaternion LookRotation(Vector3 forward)
         {
-            throw new NotImplementedException();
+            forward.Normalize();
+            Vector3 right = Vector3.Normalize(Vector3.Cross(Vector3.up, forward));
+            Vector3 up = Vector3.Normalize(Vector3.Cross(forward, right));
+
+            float m00 = right.x;
+            float m01 = right.y;
+            float m02 = right.z;
+            float m10 = up.x;
+            float m11 = up.y;
+            float m12 = up.z;
+            float m20 = forward.x;
+            float m21 = forward.y;
+            float m22 = forward.z;
+
+            float diagonals = m00 + m11 + m22;
+
+            MyQuaternion q = MyQuaternion.identity;
+
+            if (diagonals > 0f)
+            {
+                float num = MathF.Sqrt(diagonals + 1);
+                q.w = num * 0.5f;
+                num = 0.5f / num;
+                q.x = (m12 - m21) * num;
+                q.y = (m20 - m02) * num;
+                q.z = (m01 - m10) * num;
+                return q;
+            }
+            if (m00 >= m11 && m00 >= m22)
+            {
+                float num = MathF.Sqrt(1 + m00 - m11 - m22);
+                q.x = num * 0.5f;
+                num = 0.5f / num;
+                q.y = (m01 + m10) * num;
+                q.z = (m20 + m02) * num;
+                q.w = (m12 - m21) * num;
+                return q;
+            }
+            if (m11 > m22)
+            {
+                float num = MathF.Sqrt(1 + m11 - m00 - m22);
+                q.y = num * 0.5f;
+                num = 0.5f / num;
+                q.x = (m01 + m10) * num;
+                q.z = (m12 + m21) * num;
+                q.w = (m20 - m02) * num;
+                return q;
+            }
+
+            float num1 = MathF.Sqrt(1 + m22 - m00 - m11);
+            q.z = num1 * 0.5f;
+            num1 = 0.5f / num1;
+            q.x = (m20 + m02) * num1;
+            q.y = (m21 + m12) * num1;
+            q.w = (m01 - m10) * num1;
+            return q;
         }
         public static MyQuaternion LookRotation(Vector3 forward, [UnityEngine.Internal.DefaultValue("Vector3.up")] Vector3 upwards)
         {
-            throw new NotImplementedException();
+            forward.Normalize();
+            Vector3 right = Vector3.Normalize(Vector3.Cross(upwards, forward));
+            upwards = Vector3.Normalize(Vector3.Cross(forward, right));
+
+            float m00 = right.x;
+            float m01 = right.y;
+            float m02 = right.z;
+            float m10 = upwards.x;
+            float m11 = upwards.y;
+            float m12 = upwards.z;
+            float m20 = forward.x;
+            float m21 = forward.y;
+            float m22 = forward.z;
+
+            float diagonals = m00 + m11 + m22;
+
+            MyQuaternion q = MyQuaternion.identity;
+
+            if (diagonals > 0f)
+            {
+                float num = MathF.Sqrt(diagonals + 1);
+                q.w = num * 0.5f;
+                num = 0.5f / num;
+                q.x = (m12 - m21) * num;
+                q.y = (m20 - m02) * num;
+                q.z = (m01 - m10) * num;
+                return q;
+            }
+            if (m00 >= m11 && m00 >= m22)
+            {
+                float num = MathF.Sqrt(1 + m00 - m11 - m22);
+                q.x = num * 0.5f;
+                num = 0.5f / num;
+                q.y = (m01 + m10) * num;
+                q.z = (m20 + m02) * num;
+                q.w = (m12 - m21) * num;
+                return q;
+            }
+            if (m11 > m22)
+            {
+                float num = MathF.Sqrt(1 + m11 - m00 - m22);
+                q.y = num * 0.5f;
+                num = 0.5f / num;
+                q.x = (m01 + m10) * num;
+                q.z = (m12 + m21) * num;
+                q.w = (m20 - m02) * num;
+                return q;
+            }
+
+            float num1 = MathF.Sqrt(1 + m22 - m00 - m11);
+            q.z = num1 * 0.5f;
+            num1 = 0.5f / num1;
+            q.x = (m20 + m02) * num1;
+            q.y = (m21 + m12) * num1;
+            q.w = (m01 - m10) * num1;
+            return q;
         }
         public static MyQuaternion Normalize(MyQuaternion q)
         {

@@ -15,6 +15,7 @@ public class Tester : MonoBehaviour
 
     [SerializeField] private Vector3 eulerAngles;
     [SerializeField] private Vector3 point;
+    [SerializeField] private Vector3 up;
 
     private void Awake()
     {
@@ -32,8 +33,8 @@ public class Tester : MonoBehaviour
     {
         //Debug.Log($"My quat eulers are: {myQuat.eulerAngles}");
         //Debug.Log($"Unity Quaternion eulers are: {quaternion.eulerAngles}");
-        Debug.Log($"My Quat point rotation: {myQuatA * point} ");
-        Debug.Log($"Quaternion point rotation: {quaternionA * point} ");
+        Debug.Log($"My Quat LookRotation: {MyQuaternion.LookRotation(point, up)} ");
+        Debug.Log($"Quaternion LookRotation: {Quaternion.LookRotation(point, up)} ");
         //Debug.Log($"MyQuaternion based on euler angles returns: {myQuatA}");
         //Debug.Log($"Quaternion based on euler angles returns: {quaternionA}");
     }
