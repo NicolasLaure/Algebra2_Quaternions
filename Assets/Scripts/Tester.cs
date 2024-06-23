@@ -33,8 +33,8 @@ public class Tester : MonoBehaviour
     {
         //Debug.Log($"My quat eulers are: {myQuat.eulerAngles}");
         //Debug.Log($"Unity Quaternion eulers are: {quaternion.eulerAngles}");
-        Debug.Log($"My Quat Slerp: {MyQuaternion.Slerp(myQuatA, myQuatB, 2)} ");
-        Debug.Log($"Quaternion Slerp: {Quaternion.Slerp(quaternionA, quaternionB, 2)} ");
+        Debug.Log($"My Quat Slerp: {MyQuaternion.SlerpUnclamped(myQuatA, myQuatB, -0.5f)} ");
+        Debug.Log($"Quaternion Slerp: {Quaternion.SlerpUnclamped(quaternionA, quaternionB, -0.5f)} ");
         //Debug.Log($"MyQuaternion based on euler angles returns: {myQuatA}");
         //Debug.Log($"Quaternion based on euler angles returns: {quaternionA}");
     }
