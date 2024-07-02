@@ -17,15 +17,23 @@ public class Tester : MonoBehaviour
     [SerializeField] private Vector3 point;
     [SerializeField] private Vector3 up;
 
+    MyQuaternion res;
+    Quaternion result;
+
     private void Awake()
     {
         quaternionA = myQuatA.toQuaternion;
         quaternionB = myQuatB.toQuaternion;
+
+        myQuatObject.transform.rotation = myQuatA.toQuaternion;
+        quaternionObject.transform.rotation = quaternionA;
+
+        res = myQuatA;
+        result = quaternionA;
     }
     private void Update()
     {
-        myQuatObject.transform.rotation = myQuatA.toQuaternion;
-        quaternionObject.transform.rotation = quaternionA;
+        TestQuaternion();
     }
 
     [ContextMenu("Test")]
@@ -33,8 +41,14 @@ public class Tester : MonoBehaviour
     {
         //Debug.Log($"My quat eulers are: {myQuat.eulerAngles}");
         //Debug.Log($"Unity Quaternion eulers are: {quaternion.eulerAngles}");
-        Debug.Log($"My Quat Slerp: {MyQuaternion.Slerp(myQuatA, myQuatB, 0.5f)} ");
-        Debug.Log($"Quaternion Slerp: {Quaternion.Slerp(quaternionA, quaternionB, 0.5f)} ");
+        res = MyQuaternion.RotateTowards(res, myQuatB, -0.5f);
+        Debug.Log($"My Quat RotateTowards: {res} ");
+        result = Quaternion.RotateTowards(result, quaternionB, -0.5f);
+        Debug.Log($"Quaternion RotateTowards: {result} ");
+
+        myQuatObject.transform.rotation = res.toQuaternion;
+        quaternionObject.transform.rotation = result;
+
         //Debug.Log($"MyQuaternion based on euler angles returns: {myQuatA}");
         //Debug.Log($"Quaternion based on euler angles returns: {quaternionA}");
     }

@@ -365,7 +365,12 @@ namespace customMath
         }
         public static MyQuaternion RotateTowards(MyQuaternion from, MyQuaternion to, float maxDegreesDelta)
         {
-            throw new NotImplementedException();
+            if (Dot(from.normalized, to.normalized) >= 1 - kEpsilon || Dot(from.normalized, to.normalized) <= -1 + kEpsilon)
+            {
+                return to;
+            }
+            float angle = Angle(from, to);
+            return LerpUnclamped(from, to, maxDegreesDelta / angle);
         }
         public static MyQuaternion Slerp(MyQuaternion a, MyQuaternion b, float t)
         {
