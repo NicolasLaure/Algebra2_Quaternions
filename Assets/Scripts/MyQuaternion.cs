@@ -158,7 +158,6 @@ namespace customMath
         }
         public static MyQuaternion Euler(Vector3 euler)
         {
-
             // pointer to Cuaterniones_y_unity.pptm.pdf page 8
             MyQuaternion qx = identity;
             MyQuaternion qy = identity;

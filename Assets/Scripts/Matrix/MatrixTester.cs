@@ -16,7 +16,7 @@ public class MatrixTester : MonoBehaviour
         myMatrix = new MY4X4(vector4s[0], vector4s[1], vector4s[2], vector4s[3]);
         matrix = new Matrix4x4(vector4s[0], vector4s[1], vector4s[2], vector4s[3]);
 
-        Debug.Log($"my matrix:\n{myMatrix}");
-        Debug.Log($"unity's matrix:\n {matrix}");
+        Debug.Log($"my matrix:\n{MY4X4.identity}");
+        Debug.Log($"unity's matrix:\n {Matrix4x4.identity}");
     }
 }

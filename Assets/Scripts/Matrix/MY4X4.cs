@@ -78,11 +78,21 @@ public class MY4X4 : IEquatable<MY4X4>
     //
     // Summary:
     //     Returns a matrix with all elements set to zero (Read Only).
-    public static MY4X4 zero { get { throw new NotImplementedException(); } }
+    public static MY4X4 zero { get { return new MY4X4(Vector4.zero, Vector4.zero, Vector4.zero, Vector4.zero); } }
     //
     // Summary:
     //     Returns the identity matrix (Read Only).
-    public static MY4X4 identity { get { throw new NotImplementedException(); } }
+    public static MY4X4 identity
+    {
+        get
+        {
+            Vector4 col1 = new Vector4(1, 0);
+            Vector4 col2 = new Vector4(0, 1);
+            Vector4 col3 = new Vector4(0, 0, 1);
+            Vector4 col4 = new Vector4(0, 0, 0, 1);
+            return new MY4X4(col1, col2, col3, col4);
+        }
+    }
     #endregion
 
     #region Operators
