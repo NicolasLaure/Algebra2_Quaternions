@@ -5,6 +5,7 @@ using System;
 
 public class MY4X4 : IEquatable<MY4X4>
 {
+    #region Variables
     public float m00;
     public float m33;
     public float m23;
@@ -22,40 +23,6 @@ public class MY4X4 : IEquatable<MY4X4>
     public float m10;
     public float m31;
 
-    public MY4X4(Vector4 column0, Vector4 column1, Vector4 column2, Vector4 column3)
-    {
-        m00 = column0.x;
-        m10 = column0.y;
-        m20 = column0.z;
-        m30 = column0.w;
-
-        m01 = column1.x;
-        m11 = column1.y;
-        m21 = column1.z;
-        m31 = column1.w;
-
-        m02 = column2.x;
-        m12 = column2.y;
-        m22 = column2.z;
-        m32 = column2.w;
-
-        m03 = column3.x;
-        m13 = column3.y;
-        m23 = column3.z;
-        m33 = column3.w;
-    }
-
-    public float this[int index] { get { throw new NotImplementedException(); } set { throw new NotImplementedException(); } }
-    public float this[int row, int column] { get { throw new NotImplementedException(); } set { throw new NotImplementedException(); } }
-
-    //
-    // Summary:
-    //     Returns a matrix with all elements set to zero (Read Only).
-    public static MY4X4 zero { get { throw new NotImplementedException(); } }
-    //
-    // Summary:
-    //     Returns the identity matrix (Read Only).
-    public static MY4X4 identity { get { throw new NotImplementedException(); } }
     //
     // Summary:
     //     Attempts to get a rotation quaternion from this matrix.
@@ -78,99 +45,75 @@ public class MY4X4 : IEquatable<MY4X4>
     public MY4X4 transpose { get { throw new NotImplementedException(); } }
     //
     // Summary:
-    //     This property takes a projection matrix and returns the six plane coordinates
-    //     that define a projection frustum.
-    public FrustumPlanes decomposeProjection { get { throw new NotImplementedException(); } }
-    //
-    // Summary:
     //     The inverse of this matrix. (Read Only)
     public MY4X4 inverse { get { throw new NotImplementedException(); } }
+    #endregion
 
+    #region Constructors
+    public MY4X4(Vector4 column0, Vector4 column1, Vector4 column2, Vector4 column3)
+    {
+        m00 = column0.x;
+        m10 = column0.y;
+        m20 = column0.z;
+        m30 = column0.w;
+
+        m01 = column1.x;
+        m11 = column1.y;
+        m21 = column1.z;
+        m31 = column1.w;
+
+        m02 = column2.x;
+        m12 = column2.y;
+        m22 = column2.z;
+        m32 = column2.w;
+
+        m03 = column3.x;
+        m13 = column3.y;
+        m23 = column3.z;
+        m33 = column3.w;
+    }
+    #endregion
+
+    #region Defaults
+    //
+    // Summary:
+    //     Returns a matrix with all elements set to zero (Read Only).
+    public static MY4X4 zero { get { throw new NotImplementedException(); } }
+    //
+    // Summary:
+    //     Returns the identity matrix (Read Only).
+    public static MY4X4 identity { get { throw new NotImplementedException(); } }
+    #endregion
+
+    #region Operators
+    public static Vector4 operator *(MY4X4 lhs, Vector4 vector)
+    {
+
+        throw new NotImplementedException();
+    }
+    public static MY4X4 operator *(MY4X4 lhs, MY4X4 rhs)
+    {
+
+        throw new NotImplementedException();
+    }
+    public static bool operator ==(MY4X4 lhs, MY4X4 rhs)
+    {
+
+        throw new NotImplementedException();
+    }
+    public static bool operator !=(MY4X4 lhs, MY4X4 rhs)
+    {
+
+        throw new NotImplementedException();
+    }
+    #endregion
+
+    #region Functions
     public static float Determinant(MY4X4 m)
     {
         throw new NotImplementedException();
     }
-    //
-    // Summary:
-    //     This function returns a projection matrix with viewing frustum that has a near
-    //     plane defined by the coordinates that were passed in.
-    //
-    // Parameters:
-    //   left:
-    //     The X coordinate of the left side of the near projection plane in view space.
-    //
-    //   right:
-    //     The X coordinate of the right side of the near projection plane in view space.
-    //
-    //   bottom:
-    //     The Y coordinate of the bottom side of the near projection plane in view space.
-    //
-    //   top:
-    //     The Y coordinate of the top side of the near projection plane in view space.
-    //
-    //   zNear:
-    //     Z distance to the near plane from the origin in view space.
-    //
-    //   zFar:
-    //     Z distance to the far plane from the origin in view space.
-    //
-    //   frustumPlanes:
-    //     Frustum planes struct that contains the view space coordinates of that define
-    //     a viewing frustum.
-    //
-    //   fp:
-    //
-    // Returns:
-    //     A projection matrix with a viewing frustum defined by the plane coordinates passed
-    //     in.
-    public static MY4X4 Frustum(float left, float right, float bottom, float top, float zNear, float zFar)
-    {
-        throw new NotImplementedException();
-    }
-    //
-    // Summary:
-    //     This function returns a projection matrix with viewing frustum that has a near
-    //     plane defined by the coordinates that were passed in.
-    //
-    // Parameters:
-    //   left:
-    //     The X coordinate of the left side of the near projection plane in view space.
-    //
-    //   right:
-    //     The X coordinate of the right side of the near projection plane in view space.
-    //
-    //   bottom:
-    //     The Y coordinate of the bottom side of the near projection plane in view space.
-    //
-    //   top:
-    //     The Y coordinate of the top side of the near projection plane in view space.
-    //
-    //   zNear:
-    //     Z distance to the near plane from the origin in view space.
-    //
-    //   zFar:
-    //     Z distance to the far plane from the origin in view space.
-    //
-    //   frustumPlanes:
-    //     Frustum planes struct that contains the view space coordinates of that define
-    //     a viewing frustum.
-    //
-    //   fp:
-    //
-    // Returns:
-    //     A projection matrix with a viewing frustum defined by the plane coordinates passed
-    //     in.
-    public static MY4X4 Frustum(FrustumPlanes fp)
-    {
-        throw new NotImplementedException();
-
-    }
     public static MY4X4 Inverse(MY4X4 m)
-    {
-
-        throw new NotImplementedException();
-    }
-    public static bool Inverse3DAffine(MY4X4 input, ref MY4X4 result)
     {
 
         throw new NotImplementedException();
@@ -192,60 +135,6 @@ public class MY4X4 : IEquatable<MY4X4>
     // Returns:
     //     The resulting transformation matrix.
     public static MY4X4 LookAt(Vector3 from, Vector3 to, Vector3 up)
-    {
-
-        throw new NotImplementedException();
-    }
-    //
-    // Summary:
-    //     Create an orthogonal projection matrix.
-    //
-    // Parameters:
-    //   left:
-    //     Left-side x-coordinate.
-    //
-    //   right:
-    //     Right-side x-coordinate.
-    //
-    //   bottom:
-    //     Bottom y-coordinate.
-    //
-    //   top:
-    //     Top y-coordinate.
-    //
-    //   zNear:
-    //     Near depth clipping plane value.
-    //
-    //   zFar:
-    //     Far depth clipping plane value.
-    //
-    // Returns:
-    //     The projection matrix.
-    public static MY4X4 Ortho(float left, float right, float bottom, float top, float zNear, float zFar)
-    {
-
-        throw new NotImplementedException();
-    }
-    //
-    // Summary:
-    //     Create a perspective projection matrix.
-    //
-    // Parameters:
-    //   fov:
-    //     Vertical field-of-view in degrees.
-    //
-    //   aspect:
-    //     Aspect ratio (width divided by height).
-    //
-    //   zNear:
-    //     Near depth clipping plane value.
-    //
-    //   zFar:
-    //     Far depth clipping plane value.
-    //
-    // Returns:
-    //     The projection matrix.
-    public static MY4X4 Perspective(float fov, float aspect, float zNear, float zFar)
     {
 
         throw new NotImplementedException();
@@ -303,16 +192,6 @@ public class MY4X4 : IEquatable<MY4X4>
 
         throw new NotImplementedException();
     }
-    public override bool Equals(object other)
-    {
-
-        throw new NotImplementedException();
-    }
-    public bool Equals(MY4X4 other)
-    {
-
-        throw new NotImplementedException();
-    }
     //
     // Summary:
     //     Get a column of the matrix.
@@ -320,11 +199,6 @@ public class MY4X4 : IEquatable<MY4X4>
     // Parameters:
     //   index:
     public Vector4 GetColumn(int index)
-    {
-
-        throw new NotImplementedException();
-    }
-    public override int GetHashCode()
     {
 
         throw new NotImplementedException();
@@ -432,24 +306,7 @@ public class MY4X4 : IEquatable<MY4X4>
     //
     //   formatProvider:
     //     An object that specifies culture-specific formatting.
-    public override string ToString()
-    {
-        return $"{m00} {m01} {m02} {m03}\n" +
-               $"{m10} {m11} {m12} {m13}\n" +
-               $"{m20} {m21} {m22} {m23}\n" +
-               $"{m30} {m31} {m32} {m33}";
-    }
-    //
-    // Summary:
-    //     Returns a plane that is transformed in space.
-    //
-    // Parameters:
-    //   plane:
-    public Plane TransformPlane(Plane plane)
-    {
 
-        throw new NotImplementedException();
-    }
     //
     // Summary:
     //     Checks if this matrix is a valid transform matrix.
@@ -459,24 +316,35 @@ public class MY4X4 : IEquatable<MY4X4>
         throw new NotImplementedException();
     }
 
-    public static Vector4 operator *(MY4X4 lhs, Vector4 vector)
+    #endregion
+
+    #region Internals
+    public override string ToString()
+    {
+        return $"{m00} {m01} {m02} {m03}\n" +
+               $"{m10} {m11} {m12} {m13}\n" +
+               $"{m20} {m21} {m22} {m23}\n" +
+               $"{m30} {m31} {m32} {m33}";
+    }
+
+    public float this[int index] { get { throw new NotImplementedException(); } set { throw new NotImplementedException(); } }
+    public float this[int row, int column] { get { throw new NotImplementedException(); } set { throw new NotImplementedException(); } }
+
+    public override bool Equals(object other)
+    {
+        throw new NotImplementedException();
+    }
+    public bool Equals(MY4X4 other)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override int GetHashCode()
     {
 
         throw new NotImplementedException();
     }
-    public static MY4X4 operator *(MY4X4 lhs, MY4X4 rhs)
-    {
 
-        throw new NotImplementedException();
-    }
-    public static bool operator ==(MY4X4 lhs, MY4X4 rhs)
-    {
 
-        throw new NotImplementedException();
-    }
-    public static bool operator !=(MY4X4 lhs, MY4X4 rhs)
-    {
-
-        throw new NotImplementedException();
-    }
+    #endregion
 }
