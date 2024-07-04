@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class MY4X4 : IEquatable<MY4X4>, IFormattable
+public class MY4X4 : IEquatable<MY4X4>
 {
     public float m00;
     public float m33;
@@ -22,7 +22,28 @@ public class MY4X4 : IEquatable<MY4X4>, IFormattable
     public float m10;
     public float m31;
 
-    public MY4X4(Vector4 column0, Vector4 column1, Vector4 column2, Vector4 column3) { }
+    public MY4X4(Vector4 column0, Vector4 column1, Vector4 column2, Vector4 column3)
+    {
+        m00 = column0.x;
+        m10 = column0.y;
+        m20 = column0.z;
+        m30 = column0.w;
+
+        m01 = column1.x;
+        m11 = column1.y;
+        m21 = column1.z;
+        m31 = column1.w;
+
+        m02 = column2.x;
+        m12 = column2.y;
+        m22 = column2.z;
+        m32 = column2.w;
+
+        m03 = column3.x;
+        m13 = column3.y;
+        m23 = column3.z;
+        m33 = column3.w;
+    }
 
     public float this[int index] { get { throw new NotImplementedException(); } set { throw new NotImplementedException(); } }
     public float this[int row, int column] { get { throw new NotImplementedException(); } set { throw new NotImplementedException(); } }
@@ -413,38 +434,10 @@ public class MY4X4 : IEquatable<MY4X4>, IFormattable
     //     An object that specifies culture-specific formatting.
     public override string ToString()
     {
-
-        throw new NotImplementedException();
-    }
-    //
-    // Summary:
-    //     Returns a formatted string for this matrix.
-    //
-    // Parameters:
-    //   format:
-    //     A numeric format string.
-    //
-    //   formatProvider:
-    //     An object that specifies culture-specific formatting.
-    public string ToString(string format)
-    {
-
-        throw new NotImplementedException();
-    }
-    //
-    // Summary:
-    //     Returns a formatted string for this matrix.
-    //
-    // Parameters:
-    //   format:
-    //     A numeric format string.
-    //
-    //   formatProvider:
-    //     An object that specifies culture-specific formatting.
-    public string ToString(string format, IFormatProvider formatProvider)
-    {
-
-        throw new NotImplementedException();
+        return $"{m00} {m01} {m02} {m03}\n" +
+               $"{m10} {m11} {m12} {m13}\n" +
+               $"{m20} {m21} {m22} {m23}\n" +
+               $"{m30} {m31} {m32} {m33}";
     }
     //
     // Summary:
