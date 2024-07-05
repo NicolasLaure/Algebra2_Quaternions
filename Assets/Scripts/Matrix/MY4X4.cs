@@ -213,7 +213,6 @@ public class MY4X4 : IEquatable<MY4X4>
     }
     public static MY4X4 Inverse(MY4X4 m)
     {
-
         throw new NotImplementedException();
     }
     //
@@ -322,8 +321,19 @@ public class MY4X4 : IEquatable<MY4X4>
     //   index:
     public Vector4 GetColumn(int index)
     {
-
-        throw new NotImplementedException();
+        switch (index)
+        {
+            case 0:
+                return new Vector4(m00, m10, m20, m30);
+            case 1:
+                return new Vector4(m01, m11, m21, m31);
+            case 2:
+                return new Vector4(m02, m12, m22, m32);
+            case 3:
+                return new Vector4(m03, m13, m23, m33);
+            default:
+                throw new Exception("Invalid Index");
+        }
     }
     //
     // Summary:
