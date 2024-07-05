@@ -27,7 +27,22 @@ public class MY4X4 : IEquatable<MY4X4>
     //
     // Summary:
     //     Attempts to get a rotation quaternion from this matrix.
-    public Quaternion rotation { get { throw new NotImplementedException(); } }
+    public MyQuaternion rotation
+    {
+        get
+        {
+            MY4X4 m = this;
+            MyQuaternion q = MyQuaternion.identity;
+            q.w = Mathf.Sqrt(Mathf.Max(0, 1 + m[0, 0] + m[1, 1] + m[2, 2])) / 2; //Devuelve la raiz de un número que debe ser al menos 0.
+            q.x = Mathf.Sqrt(Mathf.Max(0, 1 + m[0, 0] - m[1, 1] - m[2, 2])) / 2; //Por eso hace un min entre las posiciones de las diagonales.
+            q.y = Mathf.Sqrt(Mathf.Max(0, 1 - m[0, 0] + m[1, 1] - m[2, 2])) / 2;
+            q.z = Mathf.Sqrt(Mathf.Max(0, 1 - m[0, 0] - m[1, 1] + m[2, 2])) / 2;
+            q.x *= Mathf.Sign(q.x * (m[2, 1] - m[1, 2]));
+            q.y *= Mathf.Sign(q.y * (m[0, 2] - m[2, 0])); //Son los valores de la matriz que se van a modificar
+            q.z *= Mathf.Sign(q.z * (m[1, 0] - m[0, 1]));
+            return q;
+        }
+    }
     //
     // Summary:
     //     Attempts to get a scale value from the matrix. (Read Only)
@@ -58,7 +73,7 @@ public class MY4X4 : IEquatable<MY4X4>
     //
     // Summary:
     //     The inverse of this matrix. (Read Only)
-    public MY4X4 inverse { get { return Inverse(this); } }
+    //public MY4X4 inverse { get { return Inverse(this); } }
     #endregion
 
     #region Constructors
@@ -214,6 +229,7 @@ public class MY4X4 : IEquatable<MY4X4>
         // m20 m21 m23
         // m30 m31 m33
         float cDeterminant = m.m10 * (m.m21 * m.m33 - m.m23 * m.m31) - m.m11 * (m.m20 * m.m33 - m.m23 * m.m30) + m.m13 * (m.m20 * m.m31 - m.m21 * m.m30);
+
         // dDeterminant 
         // m10 m11 m12
         // m20 m21 m22
@@ -224,7 +240,57 @@ public class MY4X4 : IEquatable<MY4X4>
     }
     public static MY4X4 Inverse(MY4X4 m)
     {
-        throw new NotImplementedException();
+        float detA = Determinant(m); //Debe tener determinante, de otra forma, no es inversible
+        if (detA == 0)
+            return zero;
+
+        Vector4 row0;
+        Vector4 row1;
+        Vector4 row2;
+        Vector4 row3;
+
+        #region Row0
+        float m00determine = m.m11 * m.m22 * m.m33 + m.m12 * m.m23 * m.m31 + m.m13 * m.m21 * m.m32 - m.m11 * m.m23 * m.m32 - m.m12 * m.m21 * m.m33 - m.m13 * m.m22 * m.m31;
+        float m01determine = m.m01 * m.m23 * m.m32 + m.m02 * m.m21 * m.m33 + m.m03 * m.m22 * m.m31 - m.m01 * m.m22 * m.m33 - m.m02 * m.m23 * m.m31 - m.m03 * m.m21 * m.m32;
+        float m02determine = m.m01 * m.m12 * m.m33 + m.m02 * m.m13 * m.m32 + m.m03 * m.m11 * m.m32 - m.m01 * m.m13 * m.m32 - m.m02 * m.m11 * m.m33 - m.m03 * m.m12 * m.m31;
+        float m03determine = m.m01 * m.m13 * m.m22 + m.m02 * m.m11 * m.m23 + m.m03 * m.m12 * m.m21 - m.m01 * m.m12 * m.m23 - m.m02 * m.m13 * m.m21 - m.m03 * m.m11 * m.m22;
+        row0 = new Vector4(m00determine, m01determine, m02determine, m03determine);
+        #endregion
+        #region Row1
+        float m10determine = m.m10 * m.m23 * m.m32 + m.m12 * m.m20 * m.m33 + m.m13 * m.m22 * m.m30 - m.m10 * m.m22 * m.m33 - m.m12 * m.m23 * m.m30 - m.m13 * m.m20 * m.m32;
+        float m11determine = m.m00 * m.m22 * m.m33 + m.m02 * m.m23 * m.m30 + m.m03 * m.m20 * m.m32 - m.m00 * m.m23 * m.m32 - m.m02 * m.m20 * m.m33 - m.m03 * m.m22 * m.m30;
+        float m12determine = m.m00 * m.m13 * m.m32 + m.m02 * m.m10 * m.m33 + m.m03 * m.m12 * m.m30 - m.m00 * m.m12 * m.m33 - m.m02 * m.m13 * m.m30 - m.m03 * m.m10 * m.m32;
+        float m13determine = m.m00 * m.m12 * m.m23 + m.m02 * m.m13 * m.m20 + m.m03 * m.m10 * m.m22 - m.m00 * m.m13 * m.m22 - m.m02 * m.m10 * m.m23 - m.m03 * m.m12 * m.m20;
+        row1 = new Vector4(m10determine, m11determine, m12determine, m13determine);
+        #endregion
+        #region Row2
+        float m20determine = m.m10 * m.m21 * m.m33 + m.m11 * m.m23 * m.m30 + m.m13 * m.m20 * m.m31 - m.m10 * m.m23 * m.m31 - m.m11 * m.m20 * m.m33 - m.m13 * m.m31 * m.m30;
+        float m21determine = m.m00 * m.m23 * m.m31 + m.m01 * m.m20 * m.m33 + m.m03 * m.m21 * m.m30 - m.m00 * m.m21 * m.m33 - m.m01 * m.m23 * m.m30 - m.m03 * m.m20 * m.m31;
+        float m22determine = m.m00 * m.m11 * m.m33 + m.m01 * m.m13 * m.m31 + m.m03 * m.m10 * m.m31 - m.m00 * m.m13 * m.m31 - m.m01 * m.m10 * m.m33 - m.m03 * m.m11 * m.m30;
+        float m23determine = m.m00 * m.m13 * m.m21 + m.m01 * m.m10 * m.m23 + m.m03 * m.m11 * m.m31 - m.m00 * m.m11 * m.m23 - m.m01 * m.m13 * m.m20 - m.m03 * m.m10 * m.m21;
+        row2 = new Vector4(m20determine, m21determine, m22determine, m23determine);
+        #endregion
+        #region Row3
+        float m30determine = m.m10 * m.m22 * m.m31 + m.m11 * m.m20 * m.m32 + m.m12 * m.m21 * m.m30 - m.m00 * m.m21 * m.m32 - m.m11 * m.m22 * m.m30 - m.m12 * m.m20 * m.m31;
+        float m31determine = m.m00 * m.m21 * m.m32 + m.m01 * m.m22 * m.m30 + m.m02 * m.m20 * m.m31 - m.m00 * m.m22 * m.m31 - m.m01 * m.m20 * m.m32 - m.m02 * m.m21 * m.m30;
+        float m32determine = m.m00 * m.m12 * m.m31 + m.m01 * m.m10 * m.m32 + m.m02 * m.m11 * m.m30 - m.m00 * m.m11 * m.m32 - m.m01 * m.m12 * m.m30 - m.m02 * m.m10 * m.m31;
+        float m33determine = m.m00 * m.m11 * m.m22 + m.m01 * m.m12 * m.m20 + m.m02 * m.m10 * m.m21 - m.m00 * m.m12 * m.m21 - m.m01 * m.m10 * m.m22 - m.m02 * m.m11 * m.m20;
+        row3 = new Vector4(m30determine, m31determine, m32determine, m33determine);
+        #endregion
+
+        row0 /= detA;
+        row1 /= detA;
+        row2 /= detA;
+        row3 /= detA;
+
+        MY4X4 res = MY4X4.identity;
+
+        res.SetRow(0, row0);
+        res.SetRow(1, row1);
+        res.SetRow(2, row2);
+        res.SetRow(3, row3);
+
+        return res;
     }
     //
     // Summary:
@@ -504,7 +570,6 @@ public class MY4X4 : IEquatable<MY4X4>
                $"{m20}\t {m21}\t {m22}\t {m23}\n" +
                $"{m30}\t {m31}\t {m32}\t {m33}";
     }
-
     public float this[int index]
     {
         get
@@ -555,13 +620,10 @@ public class MY4X4 : IEquatable<MY4X4>
     {
         throw new NotImplementedException();
     }
-
     public override int GetHashCode()
     {
 
         throw new NotImplementedException();
     }
-
-
     #endregion
 }

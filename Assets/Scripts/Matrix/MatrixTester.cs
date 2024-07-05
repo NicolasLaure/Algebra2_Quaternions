@@ -14,13 +14,24 @@ public class MatrixTester : MonoBehaviour
 
     [SerializeField] Vector3 point;
 
+    [Header("LOOK AT")]
+    [SerializeField] Vector3 from;
+    [SerializeField] Vector3 to;
+    [SerializeField] Vector3 up;
+
+
     [ContextMenu("Test")]
     void Test()
     {
         myMatrix = MY4X4.TRS(translation, rotation, scale);
         matrix = Matrix4x4.TRS(translation, rotation.toQuaternion, scale);
 
-        Debug.Log($"My matrix vec3 Mul {myMatrix.MultiplyPoint3x4(point)}");
-        Debug.Log($"Unity matrix vec3 Mul {matrix.MultiplyPoint3x4(point)}");
+        MY4X4 myInverse = MY4X4.Inverse(myMatrix);
+        Matrix4x4 unityInverse = Matrix4x4.Inverse(matrix);
+        Debug.Log($"My matrix : {myInverse}");
+        Debug.Log($"Unity matrix : {unityInverse}");
+
+        Debug.Log($"My matrix mul with original: {myMatrix * myInverse}");
+        Debug.Log($"Unity mul with original: {matrix * unityInverse}");
     }
 }
