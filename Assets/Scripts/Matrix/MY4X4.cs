@@ -33,10 +33,16 @@ public class MY4X4 : IEquatable<MY4X4>
         {
             MY4X4 m = this;
             MyQuaternion q = MyQuaternion.identity;
+            //Toma diagonal m00 m11 m22 (Escala)
+            // Agarra y setea una suma o resta dependiendo del componente en el que estemos siendo 
+            // w suma de todas las escalas
+            // por cada eje suma su escala y resta la resto
             q.w = Mathf.Sqrt(Mathf.Max(0, 1 + m[0, 0] + m[1, 1] + m[2, 2])) / 2; //Devuelve la raiz de un número que debe ser al menos 0.
             q.x = Mathf.Sqrt(Mathf.Max(0, 1 + m[0, 0] - m[1, 1] - m[2, 2])) / 2; //Por eso hace un min entre las posiciones de las diagonales.
             q.y = Mathf.Sqrt(Mathf.Max(0, 1 - m[0, 0] + m[1, 1] - m[2, 2])) / 2;
             q.z = Mathf.Sqrt(Mathf.Max(0, 1 - m[0, 0] - m[1, 1] + m[2, 2])) / 2;
+
+            // m[2, 1] - m[1, 2] son las posiciones de los senos de cada eje dentro de la matriz
             q.x *= Mathf.Sign(q.x * (m[2, 1] - m[1, 2]));
             q.y *= Mathf.Sign(q.y * (m[0, 2] - m[2, 0])); //Son los valores de la matriz que se van a modificar
             q.z *= Mathf.Sign(q.z * (m[1, 0] - m[0, 1]));

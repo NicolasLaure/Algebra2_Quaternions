@@ -17,6 +17,10 @@ public class Tester : MonoBehaviour
     [SerializeField] private Vector3 point;
     [SerializeField] private Vector3 up;
 
+    [Header("LOOK ROTATION")]
+    [SerializeField] Vector3 forward;
+    [SerializeField] Vector3 upwards;
+
     MyQuaternion res;
     Quaternion result;
 
@@ -45,10 +49,14 @@ public class Tester : MonoBehaviour
         //Debug.Log($"My Quat RotateTowards: {res} ");
         //result = Quaternion.RotateTowards(result, quaternionB, -0.5f);
         //Debug.Log($"Quaternion RotateTowards: {result} ");
-        Debug.Log(myQuatA * point);
-        Debug.Log(quaternionA * point);
+        //Debug.Log(myQuatA * point);
+        //Debug.Log(quaternionA * point);
         //myQuatObject.transform.rotation = res.toQuaternion;
         //quaternionObject.transform.rotation = result;
+
+
+        Debug.Log($"My Look Rotation: {MyQuaternion.LookRotation(forward, upwards)}");
+        Debug.Log($"Unity Look Rotation: {Quaternion.LookRotation(forward, upwards)}");
 
         //Debug.Log($"MyQuaternion based on euler angles returns: {myQuatA}");
         //Debug.Log($"Quaternion based on euler angles returns: {quaternionA}");

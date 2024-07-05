@@ -290,7 +290,7 @@ namespace customMath
             forward.Normalize();
             Vector3 right = Vector3.Normalize(Vector3.Cross(upwards, forward));
             upwards = Vector3.Normalize(Vector3.Cross(forward, right));
-
+            //Crea una matriz rotacion en base a los ejes y la devuelve a rotacion
             float m00 = right.x;
             float m01 = right.y;
             float m02 = right.z;
@@ -300,6 +300,7 @@ namespace customMath
             float m20 = forward.x;
             float m21 = forward.y;
             float m22 = forward.z;
+            //Tambien se podría tratar mediante matriz 4x4, seteando una matriz en base a nuestros ejes y pedirle la rotation
 
             float diagonals = m00 + m11 + m22;
 
