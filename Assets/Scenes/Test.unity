@@ -452,6 +452,13 @@ MonoBehaviour:
   - {x: 2, y: 6, z: 10, w: 14}
   - {x: 3, y: 7, z: 11, w: 15}
   - {x: 4, y: 8, z: 12, w: 16}
+  translation: {x: 10, y: 3, z: 2}
+  scale: {x: 1, y: 1, z: 1}
+  rotation:
+    x: 0.65
+    y: -0.3
+    z: 0.24
+    w: 0.7
 --- !u!4 &854496718
 Transform:
   m_ObjectHideFlags: 0

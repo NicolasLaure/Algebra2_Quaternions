@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using customMath;
 
 public class MY4X4 : IEquatable<MY4X4>
 {
@@ -103,8 +104,28 @@ public class MY4X4 : IEquatable<MY4X4>
     }
     public static MY4X4 operator *(MY4X4 lhs, MY4X4 rhs)
     {
+        MY4X4 newMatrix = MY4X4.zero;
+        newMatrix.m00 = lhs.m00 * rhs.m00 + lhs.m01 * rhs.m10 + lhs.m02 * rhs.m20 + lhs.m03 * rhs.m30;
+        newMatrix.m01 = lhs.m00 * rhs.m01 + lhs.m01 * rhs.m11 + lhs.m02 * rhs.m21 + lhs.m03 * rhs.m31;
+        newMatrix.m02 = lhs.m00 * rhs.m02 + lhs.m01 * rhs.m12 + lhs.m02 * rhs.m22 + lhs.m03 * rhs.m32;
+        newMatrix.m03 = lhs.m00 * rhs.m03 + lhs.m01 * rhs.m13 + lhs.m02 * rhs.m23 + lhs.m03 * rhs.m33;
 
-        throw new NotImplementedException();
+        newMatrix.m10 = lhs.m10 * rhs.m00 + lhs.m11 * rhs.m10 + lhs.m12 * rhs.m20 + lhs.m13 * rhs.m30;
+        newMatrix.m11 = lhs.m10 * rhs.m01 + lhs.m11 * rhs.m11 + lhs.m12 * rhs.m21 + lhs.m13 * rhs.m31;
+        newMatrix.m12 = lhs.m10 * rhs.m02 + lhs.m11 * rhs.m12 + lhs.m12 * rhs.m22 + lhs.m13 * rhs.m32;
+        newMatrix.m13 = lhs.m10 * rhs.m03 + lhs.m11 * rhs.m13 + lhs.m12 * rhs.m23 + lhs.m13 * rhs.m33;
+
+        newMatrix.m20 = lhs.m20 * rhs.m00 + lhs.m21 * rhs.m10 + lhs.m22 * rhs.m20 + lhs.m23 * rhs.m30;
+        newMatrix.m21 = lhs.m20 * rhs.m01 + lhs.m21 * rhs.m11 + lhs.m22 * rhs.m21 + lhs.m23 * rhs.m31;
+        newMatrix.m22 = lhs.m20 * rhs.m02 + lhs.m21 * rhs.m12 + lhs.m22 * rhs.m22 + lhs.m23 * rhs.m32;
+        newMatrix.m23 = lhs.m20 * rhs.m03 + lhs.m21 * rhs.m13 + lhs.m22 * rhs.m23 + lhs.m23 * rhs.m33;
+
+        newMatrix.m30 = lhs.m30 * rhs.m00 + lhs.m31 * rhs.m10 + lhs.m32 * rhs.m20 + lhs.m33 * rhs.m30;
+        newMatrix.m31 = lhs.m30 * rhs.m01 + lhs.m31 * rhs.m11 + lhs.m32 * rhs.m21 + lhs.m33 * rhs.m31;
+        newMatrix.m32 = lhs.m30 * rhs.m02 + lhs.m31 * rhs.m12 + lhs.m32 * rhs.m22 + lhs.m33 * rhs.m32;
+        newMatrix.m33 = lhs.m30 * rhs.m03 + lhs.m31 * rhs.m13 + lhs.m32 * rhs.m23 + lhs.m33 * rhs.m33;
+
+        return newMatrix;
     }
     public static bool operator ==(MY4X4 lhs, MY4X4 rhs)
     {
@@ -155,10 +176,29 @@ public class MY4X4 : IEquatable<MY4X4>
     //
     // Parameters:
     //   q:
-    public static MY4X4 Rotate(Quaternion q)
+    public static MY4X4 Rotate(MyQuaternion q)
     {
+        MyQuaternion rotation = q;
+        rotation.Normalize();
 
-        throw new NotImplementedException();
+        Vector4 firstColumn = new Vector4(2 * (rotation.w * rotation.w + rotation.x * rotation.x) - 1,
+                                          2 * (rotation.x * rotation.y + rotation.w * rotation.z),
+                                          2 * (rotation.x * rotation.z - rotation.w * rotation.y),
+                                          0);
+
+        Vector4 secondColumn = new Vector4(2 * (rotation.x * rotation.y - rotation.w * rotation.z),
+                                           2 * (rotation.w * rotation.w + rotation.y * rotation.y) - 1,
+                                           2 * (rotation.y * rotation.z + rotation.w * rotation.x),
+                                           0);
+
+        Vector4 thirdColumn = new Vector4(2 * (rotation.x * rotation.z + rotation.w * rotation.y),
+                                          2 * (rotation.y * rotation.z - rotation.w * rotation.x),
+                                          2 * (rotation.w * rotation.w + rotation.z * rotation.z) - 1,
+                                          0);
+
+        Vector4 fourthColumn = new Vector4(0, 0, 0, 1);
+
+        return new MY4X4(firstColumn, secondColumn, thirdColumn, fourthColumn);
     }
     //
     // Summary:
@@ -168,8 +208,11 @@ public class MY4X4 : IEquatable<MY4X4>
     //   vector:
     public static MY4X4 Scale(Vector3 vector)
     {
-
-        throw new NotImplementedException();
+        Vector4 col1 = new Vector4(vector.x, 0);
+        Vector4 col2 = new Vector4(0, vector.y);
+        Vector4 col3 = new Vector4(0, 0, vector.z);
+        Vector4 col4 = new Vector4(0, 0, 0, 1);
+        return new MY4X4(col1, col2, col3, col4);
     }
     //
     // Summary:
@@ -179,8 +222,11 @@ public class MY4X4 : IEquatable<MY4X4>
     //   vector:
     public static MY4X4 Translate(Vector3 vector)
     {
-
-        throw new NotImplementedException();
+        Vector4 col1 = new Vector4(1, 0);
+        Vector4 col2 = new Vector4(0, 1);
+        Vector4 col3 = new Vector4(0, 0, 1);
+        Vector4 col4 = new Vector4(vector.x, vector.y, vector.z, 1);
+        return new MY4X4(col1, col2, col3, col4);
     }
     public static MY4X4 Transpose(MY4X4 m)
     {
@@ -197,10 +243,9 @@ public class MY4X4 : IEquatable<MY4X4>
     //   q:
     //
     //   s:
-    public static MY4X4 TRS(Vector3 pos, Quaternion q, Vector3 s)
+    public static MY4X4 TRS(Vector3 pos, MyQuaternion q, Vector3 s)
     {
-
-        throw new NotImplementedException();
+        return Translate(pos) * Rotate(q) * Scale(s);
     }
     //
     // Summary:
@@ -331,10 +376,10 @@ public class MY4X4 : IEquatable<MY4X4>
     #region Internals
     public override string ToString()
     {
-        return $"{m00} {m01} {m02} {m03}\n" +
-               $"{m10} {m11} {m12} {m13}\n" +
-               $"{m20} {m21} {m22} {m23}\n" +
-               $"{m30} {m31} {m32} {m33}";
+        return $"{m00}\t {m01}\t {m02}\t {m03}\n" +
+               $"{m10}\t {m11}\t {m12}\t {m13}\n" +
+               $"{m20}\t {m21}\t {m22}\t {m23}\n" +
+               $"{m30}\t {m31}\t {m32}\t {m33}";
     }
 
     public float this[int index] { get { throw new NotImplementedException(); } set { throw new NotImplementedException(); } }
