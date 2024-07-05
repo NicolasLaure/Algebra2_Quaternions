@@ -351,8 +351,19 @@ public class MY4X4 : IEquatable<MY4X4>
     //   index:
     public Vector4 GetRow(int index)
     {
-
-        throw new NotImplementedException();
+        switch (index)
+        {
+            case 0:
+                return new Vector4(m00, m01, m02, m03);
+            case 1:
+                return new Vector4(m10, m11, m12, m13);
+            case 2:
+                return new Vector4(m20, m21, m22, m23);
+            case 3:
+                return new Vector4(m30, m31, m32, m33);
+            default:
+                throw new Exception("Invalid Index");
+        }
     }
     //
     // Summary:
