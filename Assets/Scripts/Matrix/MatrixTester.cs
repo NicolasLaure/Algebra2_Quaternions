@@ -12,7 +12,7 @@ public class MatrixTester : MonoBehaviour
     [SerializeField] Vector3 scale;
     [SerializeField] MyQuaternion rotation;
 
-    [SerializeField] Vector4 point;
+    [SerializeField] Vector3 point;
 
     [ContextMenu("Test")]
     void Test()
@@ -20,7 +20,7 @@ public class MatrixTester : MonoBehaviour
         myMatrix = MY4X4.TRS(translation, rotation, scale);
         matrix = Matrix4x4.TRS(translation, rotation.toQuaternion, scale);
 
-        Debug.Log($"My matrix column {myMatrix.GetColumn(3)}");
-        Debug.Log($"Unity matrix column {matrix.GetColumn(3)}");
+        Debug.Log($"My matrix vec3 Mul {myMatrix.MultiplyPoint(point)}");
+        Debug.Log($"Unity matrix vec3 Mul {matrix.MultiplyPoint(point)}");
     }
 }

@@ -373,8 +373,10 @@ public class MY4X4 : IEquatable<MY4X4>
     //   point:
     public Vector3 MultiplyPoint(Vector3 point)
     {
+        Vector4 v4Point = new Vector4(point.x, point.y, point.z, 1);
+        v4Point = this * v4Point;
 
-        throw new NotImplementedException();
+        return new Vector3(v4Point.x, v4Point.y, v4Point.z);
     }
     //
     // Summary:
