@@ -386,8 +386,11 @@ public class MY4X4 : IEquatable<MY4X4>
     //   point:
     public Vector3 MultiplyPoint3x4(Vector3 point)
     {
-
-        throw new NotImplementedException();
+        Vector3 res;
+        res.x = (m00 * point.x + m01 * point.y + m02 * point.z) + m03;
+        res.y = (m10 * point.x + m11 * point.y + m12 * point.z) + m13;
+        res.z = (m20 * point.x + m21 * point.y + m22 * point.z) + m23;
+        return res;
     }
     //
     // Summary:

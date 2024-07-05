@@ -20,7 +20,7 @@ public class MatrixTester : MonoBehaviour
         myMatrix = MY4X4.TRS(translation, rotation, scale);
         matrix = Matrix4x4.TRS(translation, rotation.toQuaternion, scale);
 
-        Debug.Log($"My matrix vec3 Mul {myMatrix.MultiplyPoint(point)}");
-        Debug.Log($"Unity matrix vec3 Mul {matrix.MultiplyPoint(point)}");
+        Debug.Log($"My matrix vec3 Mul {myMatrix.MultiplyPoint3x4(point)}");
+        Debug.Log($"Unity matrix vec3 Mul {matrix.MultiplyPoint3x4(point)}");
     }
 }
