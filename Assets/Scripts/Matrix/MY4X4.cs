@@ -534,6 +534,7 @@ public class MY4X4 : IEquatable<MY4X4>
         {
             this[column + row * 4] = value;
         }
+    }
 
     public override bool Equals(object other)
     {
