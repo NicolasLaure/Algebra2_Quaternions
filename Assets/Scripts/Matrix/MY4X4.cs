@@ -32,6 +32,18 @@ public class MY4X4 : IEquatable<MY4X4>
     // Summary:
     //     Attempts to get a scale value from the matrix. (Read Only)
     public Vector3 lossyScale { get { throw new NotImplementedException(); } }
+    public Vector3 lossyScale
+    {
+        get
+        {
+            Vector3 scale;
+
+            scale.x = Mathf.Abs(m00 + m10 + m20);
+            scale.y = Mathf.Abs(m01 + m11 + m21);
+            scale.z = Mathf.Abs(m02 + m12 + m22);
+            return scale;
+        }
+    }
     //
     // Summary:
     //     Checks whether this is an identity matrix. (Read Only)
