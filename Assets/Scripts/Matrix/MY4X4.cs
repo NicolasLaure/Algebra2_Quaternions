@@ -308,8 +308,12 @@ public class MY4X4 : IEquatable<MY4X4>
     }
     public static MY4X4 Transpose(MY4X4 m)
     {
+        Vector4 row0 = m.GetRow(0);
+        Vector4 row1 = m.GetRow(1);
+        Vector4 row2 = m.GetRow(2);
+        Vector4 row3 = m.GetRow(3);
 
-        throw new NotImplementedException();
+        return new MY4X4(row0, row1, row2, row3);
     }
     //
     // Summary:
@@ -424,8 +428,10 @@ public class MY4X4 : IEquatable<MY4X4>
     //   column:
     public void SetColumn(int index, Vector4 column)
     {
-
-        throw new NotImplementedException();
+        this[0, index] = column.x;
+        this[1, index] = column.y;
+        this[2, index] = column.z;
+        this[3, index] = column.w;
     }
     //
     // Summary:
@@ -437,8 +443,10 @@ public class MY4X4 : IEquatable<MY4X4>
     //   row:
     public void SetRow(int index, Vector4 row)
     {
-
-        throw new NotImplementedException();
+        this[index, 0] = row.x;
+        this[index, 1] = row.y;
+        this[index, 2] = row.z;
+        this[index, 3] = row.w;
     }
     //
     // Summary:
@@ -486,8 +494,46 @@ public class MY4X4 : IEquatable<MY4X4>
                $"{m30}\t {m31}\t {m32}\t {m33}";
     }
 
-    public float this[int index] { get { throw new NotImplementedException(); } set { throw new NotImplementedException(); } }
-    public float this[int row, int column] { get { throw new NotImplementedException(); } set { throw new NotImplementedException(); } }
+    public float this[int index]
+    {
+        get
+        {
+            float[] values = { m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33 };
+            return values[index];
+        }
+        set
+        {
+            float[] values = { m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33 };
+            values[index] = value;
+
+            m00 = values[0];
+            m01 = values[1];
+            m02 = values[2];
+            m03 = values[3];
+            m10 = values[4];
+            m11 = values[5];
+            m12 = values[6];
+            m13 = values[7];
+            m20 = values[8];
+            m21 = values[9];
+            m22 = values[10];
+            m23 = values[11];
+            m30 = values[12];
+            m31 = values[13];
+            m32 = values[14];
+            m33 = values[15];
+        }
+    }
+    public float this[int row, int column]
+    {
+        get
+        {
+            return this[column + row * 4];
+        }
+        set
+        {
+            this[column + row * 4] = value;
+        }
 
     public override bool Equals(object other)
     {
