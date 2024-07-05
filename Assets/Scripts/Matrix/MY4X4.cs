@@ -55,11 +55,11 @@ public class MY4X4 : IEquatable<MY4X4>
     //
     // Summary:
     //     Returns the transpose of this matrix (Read Only).
-    public MY4X4 transpose { get { throw new NotImplementedException(); } }
+    public MY4X4 transpose { get { return Transpose(this); } }
     //
     // Summary:
     //     The inverse of this matrix. (Read Only)
-    public MY4X4 inverse { get { throw new NotImplementedException(); } }
+    public MY4X4 inverse { get { return Inverse(this); } }
     #endregion
 
     #region Constructors
