@@ -20,5 +20,8 @@ public class MatrixTester : MonoBehaviour
         myMatrix = MY4X4.TRS(translation, rotation, scale);
         matrix = Matrix4x4.TRS(translation, rotation.toQuaternion, scale);
 
+        Debug.Log($"My matrix Determinant {myMatrix.determinant}");
+        Debug.Log($"Unity matrix Determinant {matrix.determinant}");
+
     }
 }

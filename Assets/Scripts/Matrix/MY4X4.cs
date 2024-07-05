@@ -35,11 +35,11 @@ public class MY4X4 : IEquatable<MY4X4>
     //
     // Summary:
     //     Checks whether this is an identity matrix. (Read Only)
-    public bool isIdentity { get { throw new NotImplementedException(); } }
+    public bool isIdentity { get { return this == identity; } }
     //
     // Summary:
     //     The determinant of the matrix. (Read Only)
-    public float determinant { get { throw new NotImplementedException(); } }
+    public float determinant { get { return Determinant(this); } }
     //
     // Summary:
     //     Returns the transpose of this matrix (Read Only).
@@ -176,7 +176,40 @@ public class MY4X4 : IEquatable<MY4X4>
     #region Functions
     public static float Determinant(MY4X4 m)
     {
-        throw new NotImplementedException();
+        float a = m.m00;
+        float b = m.m01;
+        float c = m.m02;
+        float d = m.m03;
+
+        //m00 m01 m02 m03
+        //m10 m11 m12 m13
+        //m20 m21 m22 m23
+        //m30 m31 m32 m33
+
+        // aDeterminant 
+        // m11 m12 m13
+        // m21 m22 m23
+        // m31 m32 m33
+        float aDeterminant = m.m11 * (m.m22 * m.m33 - m.m23 * m.m32) - m.m12 * (m.m21 * m.m33 - m.m23 * m.m31) + m.m13 * (m.m21 * m.m32 - m.m22 * m.m31);
+
+        // bDeterminant 
+        // m10 m12 m13
+        // m20 m22 m23
+        // m30 m32 m33
+        float bDeterminant = m.m10 * (m.m22 * m.m33 - m.m23 * m.m32) - m.m12 * (m.m20 * m.m33 - m.m23 * m.m30) + m.m13 * (m.m20 * m.m32 - m.m22 * m.m30);
+
+        // cDeterminant 
+        // m10 m11 m13
+        // m20 m21 m23
+        // m30 m31 m33
+        float cDeterminant = m.m10 * (m.m21 * m.m33 - m.m23 * m.m31) - m.m11 * (m.m20 * m.m33 - m.m23 * m.m30) + m.m13 * (m.m20 * m.m31 - m.m21 * m.m30);
+        // dDeterminant 
+        // m10 m11 m12
+        // m20 m21 m22
+        // m30 m31 m32
+        float dDeterminant = m.m10 * (m.m21 * m.m32 - m.m22 * m.m31) - m.m11 * (m.m20 * m.m32 - m.m22 * m.m30) + m.m12 * (m.m20 * m.m31 - m.m21 * m.m30);
+
+        return a * aDeterminant - b * bDeterminant + c * cDeterminant - d * dDeterminant;
     }
     public static MY4X4 Inverse(MY4X4 m)
     {
