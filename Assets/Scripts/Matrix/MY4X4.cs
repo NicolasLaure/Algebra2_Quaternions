@@ -352,8 +352,7 @@ public class MY4X4 : IEquatable<MY4X4>
     //     Get position vector from the matrix.
     public Vector3 GetPosition()
     {
-
-        throw new NotImplementedException();
+        return new Vector3(m03, m13, m23);
     }
     //
     // Summary:
