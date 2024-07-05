@@ -458,10 +458,14 @@ public class MY4X4 : IEquatable<MY4X4>
     //   q:
     //
     //   s:
-    public void SetTRS(Vector3 pos, Quaternion q, Vector3 s)
+    public void SetTRS(Vector3 pos, MyQuaternion q, Vector3 s)
     {
+        MY4X4 trs = TRS(pos, q, s);
 
-        throw new NotImplementedException();
+        for (int i = 0; i < 4; i++)
+        {
+            SetColumn(i, trs.GetColumn(i));
+        }
     }
     //
     // Summary:
