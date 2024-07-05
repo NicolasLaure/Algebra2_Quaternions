@@ -415,8 +415,11 @@ public class MY4X4 : IEquatable<MY4X4>
     //   vector:
     public Vector3 MultiplyVector(Vector3 vector)
     {
-
-        throw new NotImplementedException();
+        Vector3 res;
+        res.x = m00 * vector.x + m01 * vector.y + m02 * vector.z;
+        res.y = m10 * vector.x + m11 * vector.y + m12 * vector.z;
+        res.z = m20 * vector.x + m21 * vector.y + m22 * vector.z;
+        return res;
     }
     //
     // Summary:
