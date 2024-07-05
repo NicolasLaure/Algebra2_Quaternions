@@ -245,8 +245,7 @@ public class MY4X4 : IEquatable<MY4X4>
     //     The resulting transformation matrix.
     public static MY4X4 LookAt(Vector3 from, Vector3 to, Vector3 up)
     {
-
-        throw new NotImplementedException();
+        return TRS(from, MyQuaternion.LookRotation(to - from, up), Vector3.one);
     }
     //
     // Summary:
