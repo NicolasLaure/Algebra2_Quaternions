@@ -75,6 +75,10 @@ public class MY4X4 : IEquatable<MY4X4>
     }
     #endregion
 
+    #region Constants
+    public const float kEpsilon = 1E-25F;
+    #endregion
+
     #region Defaults
     //
     // Summary:
@@ -133,13 +137,39 @@ public class MY4X4 : IEquatable<MY4X4>
     }
     public static bool operator ==(MY4X4 lhs, MY4X4 rhs)
     {
+        float diff_m00 = lhs.m00 - rhs.m00;
+        float diff_m01 = lhs.m01 - rhs.m01;
+        float diff_m02 = lhs.m02 - rhs.m02;
+        float diff_m03 = lhs.m03 - rhs.m03;
 
-        throw new NotImplementedException();
+        float sqrRow0 = diff_m00 * diff_m00 + diff_m01 * diff_m01 + diff_m02 * diff_m02 + diff_m03 * diff_m03;
+
+        float diff_m10 = lhs.m10 - rhs.m10;
+        float diff_m11 = lhs.m11 - rhs.m11;
+        float diff_m12 = lhs.m12 - rhs.m12;
+        float diff_m13 = lhs.m13 - rhs.m13;
+        float sqrRow1 = diff_m10 * diff_m10 + diff_m11 * diff_m11 + diff_m12 * diff_m12 + diff_m13 * diff_m13;
+
+        float diff_m20 = lhs.m20 - rhs.m20;
+        float diff_m21 = lhs.m21 - rhs.m21;
+        float diff_m22 = lhs.m22 - rhs.m22;
+        float diff_m23 = lhs.m23 - rhs.m23;
+        float sqrRow2 = diff_m20 * diff_m20 + diff_m21 * diff_m21 + diff_m22 * diff_m22 + diff_m23 * diff_m23;
+
+        float diff_m30 = lhs.m30 - rhs.m30;
+        float diff_m31 = lhs.m31 - rhs.m31;
+        float diff_m32 = lhs.m32 - rhs.m32;
+        float diff_m33 = lhs.m33 - rhs.m33;
+        float sqrRow3 = diff_m30 * diff_m30 + diff_m31 * diff_m31 + diff_m32 * diff_m32 + diff_m33 * diff_m33;
+
+        float squares = sqrRow0 + sqrRow1 + sqrRow2 + sqrRow3;
+        return squares < kEpsilon * kEpsilon;
+        //Checks if the difference between both vectors is close to zero
+        // return sqrmag < kEpsilon * kEpsilon;
     }
     public static bool operator !=(MY4X4 lhs, MY4X4 rhs)
     {
-
-        throw new NotImplementedException();
+        return !(lhs == rhs);
     }
     #endregion
 

@@ -19,12 +19,6 @@ public class MatrixTester : MonoBehaviour
     {
         myMatrix = MY4X4.TRS(translation, rotation, scale);
         matrix = Matrix4x4.TRS(translation, rotation.toQuaternion, scale);
-        //myMatrix = MY4X4.Rotate(rotation);
-        //matrix = Matrix4x4.Rotate(rotation.toQuaternion);
-        Debug.Log($"my matrix:\n{myMatrix}");
-        Debug.Log($"unity's matrix:\n {matrix}");
 
-        Debug.Log($"my matrix pointMul: {myMatrix * point}");
-        Debug.Log($"Unity's matrix pointMul: {matrix * point}");
     }
 }
