@@ -31,7 +31,6 @@ public class MY4X4 : IEquatable<MY4X4>
     //
     // Summary:
     //     Attempts to get a scale value from the matrix. (Read Only)
-    public Vector3 lossyScale { get { throw new NotImplementedException(); } }
     public Vector3 lossyScale
     {
         get
