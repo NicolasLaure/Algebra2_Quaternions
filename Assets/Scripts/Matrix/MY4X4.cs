@@ -99,8 +99,12 @@ public class MY4X4 : IEquatable<MY4X4>
     #region Operators
     public static Vector4 operator *(MY4X4 lhs, Vector4 vector)
     {
+        //each row times column (in this case always same column vector)
+        float x = lhs.m00 * vector.x + lhs.m01 * vector.y + lhs.m02 * vector.z + lhs.m03 * vector.w;
+        float y = lhs.m10 * vector.x + lhs.m11 * vector.y + lhs.m12 * vector.z + lhs.m13 * vector.w;
+        float z = lhs.m20 * vector.x + lhs.m21 * vector.y + lhs.m22 * vector.z + lhs.m23 * vector.w;
 
-        throw new NotImplementedException();
+        return new Vector4(x, y, z, vector.w);
     }
     public static MY4X4 operator *(MY4X4 lhs, MY4X4 rhs)
     {

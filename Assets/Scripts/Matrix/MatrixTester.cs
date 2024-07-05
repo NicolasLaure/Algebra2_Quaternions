@@ -12,6 +12,8 @@ public class MatrixTester : MonoBehaviour
     [SerializeField] Vector3 scale;
     [SerializeField] MyQuaternion rotation;
 
+    [SerializeField] Vector4 point;
+
     [ContextMenu("Test")]
     void Test()
     {
@@ -21,5 +23,8 @@ public class MatrixTester : MonoBehaviour
         //matrix = Matrix4x4.Rotate(rotation.toQuaternion);
         Debug.Log($"my matrix:\n{myMatrix}");
         Debug.Log($"unity's matrix:\n {matrix}");
+
+        Debug.Log($"my matrix pointMul: {myMatrix * point}");
+        Debug.Log($"Unity's matrix pointMul: {matrix * point}");
     }
 }
