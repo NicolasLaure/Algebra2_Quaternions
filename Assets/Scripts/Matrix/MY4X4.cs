@@ -484,10 +484,16 @@ public class MY4X4 : IEquatable<MY4X4>
     //     Checks if this matrix is a valid transform matrix.
     public bool ValidTRS()
     {
+        //Checks if every axis is orthogonal (aka everyone of them are perpendicular between them)
 
-        throw new NotImplementedException();
+        Vector3 column0 = new Vector3(m00, m10, m20);
+        Vector3 column1 = new Vector3(m01, m11, m21);
+        Vector3 column2 = new Vector3(m02, m12, m22);
+
+        return Vector3.Dot(column0, column1) <= kEpsilon &&
+               Vector3.Dot(column0, column2) <= kEpsilon &&
+               Vector3.Dot(column1, column2) <= kEpsilon;
     }
-
     #endregion
 
     #region Internals
