@@ -1,25 +1,26 @@
 using System;
 using UnityEngine;
 
-namespace customMath
+namespace CustomMath
 {
     [Serializable]
     public class MyQuaternion : IEquatable<MyQuaternion>, IFormattable
     {
         #region Variables
+
         public float x;
         public float y;
         public float z;
         public float w;
 
-        public Vector3 eulerAngles
+        public Vec3 eulerAngles
         {
             get
             {
                 // pointer to Cuaterniones_y_unity.pptm.pdf page 9-14
 
                 float xValue = x * w - y * z;
-                Vector3 result = Vector3.zero;
+                Vec3 result = Vec3.Zero;
 
                 if (xValue > 0.4999f * sqrMagnitude)
                 {
@@ -28,6 +29,7 @@ namespace customMath
                     result.z = 0;
                     return result * Mathf.Rad2Deg;
                 }
+
                 if (xValue < -0.4999f * sqrMagnitude)
                 {
                     result.y = -2f * Mathf.Atan2(y, x);
@@ -48,21 +50,53 @@ namespace customMath
                 this.Set(q.x, q.y, q.z, q.w);
             }
         }
-        public float sqrMagnitude { get { return w * w + x * x + y * y + z * z; } }
-        public float magnitude { get { return MathF.Sqrt(sqrMagnitude); } }
-        public MyQuaternion normalized { get { return new MyQuaternion(x / magnitude, y / magnitude, z / magnitude, w / magnitude); } }
-        public Quaternion toQuaternion { get { return new Quaternion(x, y, z, w); } set { x = value.x; y = value.y; z = value.z; w = value.w; } }
+
+        public float sqrMagnitude
+        {
+            get { return w * w + x * x + y * y + z * z; }
+        }
+
+        public float magnitude
+        {
+            get { return MathF.Sqrt(sqrMagnitude); }
+        }
+
+        public MyQuaternion normalized
+        {
+            get { return new MyQuaternion(x / magnitude, y / magnitude, z / magnitude, w / magnitude); }
+        }
+
+        public Quaternion toQuaternion
+        {
+            get { return new Quaternion(x, y, z, w); }
+            set
+            {
+                x = value.x;
+                y = value.y;
+                z = value.z;
+                w = value.w;
+            }
+        }
+
         #endregion
 
         #region Constants
+
         public const float kEpsilon = 1E-06F;
+
         #endregion
 
         #region DefaultValues
-        public static MyQuaternion identity { get { return new MyQuaternion(0, 0, 0, 1); } }
+
+        public static MyQuaternion identity
+        {
+            get { return new MyQuaternion(0, 0, 0, 1); }
+        }
+
         #endregion
 
         #region Constructors
+
         public MyQuaternion(float x, float y, float z, float w)
         {
             this.x = x;
@@ -70,10 +104,20 @@ namespace customMath
             this.z = z;
             this.w = w;
         }
+
+        public MyQuaternion(Quaternion q)
+        {
+            x = q.x;
+            y = q.y;
+            z = q.z;
+            w = q.w;
+        }
+
         #endregion
 
         #region Operators
-        public static Vector3 operator *(MyQuaternion rotation, Vector3 point)
+
+        public static Vec3 operator *(MyQuaternion rotation, Vec3 point)
         {
             //https://automaticaddison.com/how-to-convert-a-quaternion-to-a-rotation-matrix/#Convert_a_Quaternion_to_a_Rotation_Matrix
             //https://en.wikipedia.org/wiki/Rotation_matrix
@@ -82,8 +126,9 @@ namespace customMath
             Vector4 pointV4 = new Vector4(point.x, point.y, point.z, 1);
 
             Vector4 result = myRotationMatrix * pointV4;
-            return new Vector3(result.x, result.y, result.z);
+            return new Vec3(result.x, result.y, result.z);
         }
+
         public static MyQuaternion operator *(MyQuaternion lhs, MyQuaternion rhs)
         {
             // https://stackoverflow.com/questions/19956555/how-to-multiply-two-quaternions
@@ -100,11 +145,12 @@ namespace customMath
 
             // rearrange it to fit into my format x y z w in this case i j k 1
             return new MyQuaternion(
-                                    lhs.w * rhs.x + lhs.x * rhs.w + lhs.y * rhs.z - lhs.z * rhs.y,
-                                    lhs.w * rhs.y - lhs.x * rhs.z + lhs.y * rhs.w + lhs.z * rhs.x,
-                                    lhs.w * rhs.z + lhs.x * rhs.y - lhs.y * rhs.x + lhs.z * rhs.w,
-                                    lhs.w * rhs.w - lhs.x * rhs.x - lhs.y * rhs.y - lhs.z * rhs.z);
+            lhs.w * rhs.x + lhs.x * rhs.w + lhs.y * rhs.z - lhs.z * rhs.y,
+            lhs.w * rhs.y - lhs.x * rhs.z + lhs.y * rhs.w + lhs.z * rhs.x,
+            lhs.w * rhs.z + lhs.x * rhs.y - lhs.y * rhs.x + lhs.z * rhs.w,
+            lhs.w * rhs.w - lhs.x * rhs.x - lhs.y * rhs.y - lhs.z * rhs.z);
         }
+
         public static bool operator ==(MyQuaternion lhs, MyQuaternion rhs)
         {
             float diff_x = lhs.x - rhs.x;
@@ -115,20 +161,24 @@ namespace customMath
             //Checks if the difference between both vectors is close to zero
             return sqrmag < kEpsilon * kEpsilon;
         }
+
         public static bool operator !=(MyQuaternion lhs, MyQuaternion rhs)
         {
             return !(lhs == rhs);
         }
+
         #endregion
 
         #region Functions
+
         public static float Angle(MyQuaternion a, MyQuaternion b)
         {
             //  Pointer to Cuaterniones_y_unity.pptm.pdf Page 15
             float dotAbs = Mathf.Abs(Dot(a, b));
             return a == b ? 0.0f : Mathf.Acos(Mathf.Min(dotAbs, 1.0f)) * 2 * Mathf.Rad2Deg;
         }
-        public static MyQuaternion AngleAxis(float angle, Vector3 axis)
+
+        public static MyQuaternion AngleAxis(float angle, Vec3 axis)
         {
             axis.Normalize();
             // we divide the angle by the amount of axis we operate minus one because the angle gets distributed through all the axis we operate
@@ -138,11 +188,13 @@ namespace customMath
             axis *= Mathf.Sin(angle * Mathf.Deg2Rad * 0.5f);
             return new MyQuaternion(axis.x, axis.y, axis.z, Mathf.Cos(angle * Mathf.Deg2Rad * 0.5f));
         }
+
         public static float Dot(MyQuaternion a, MyQuaternion b)
         {
             return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
         }
-        public static MyQuaternion Euler(Vector3 euler)
+
+        public static MyQuaternion Euler(Vec3 euler)
         {
             // pointer to Cuaterniones_y_unity.pptm.pdf page 8
             MyQuaternion qx = identity;
@@ -156,6 +208,7 @@ namespace customMath
 
             return qy * qx * qz;
         }
+
         public static MyQuaternion Euler(float x, float y, float z)
         {
             MyQuaternion qx = identity;
@@ -169,19 +222,22 @@ namespace customMath
 
             return qy * qx * qz;
         }
-        public static MyQuaternion FromToRotation(Vector3 fromDirection, Vector3 toDirection)
+
+        public static MyQuaternion FromToRotation(Vec3 fromDirection, Vec3 toDirection)
         {
             //Creates the axis based on the perpendicular vector to both (We'll rotate around it)
-            Vector3 axis = Vector3.Cross(fromDirection, toDirection);
+            Vec3 axis = Vec3.Cross(fromDirection, toDirection);
             //Gets the angle between the vectors
-            float angle = Vector3.Angle(fromDirection, toDirection);
+            float angle = Vec3.Angle(fromDirection, toDirection);
             //Returns the rotation in angles around the previously calculated axis
-            return AngleAxis(angle, axis.normalized);
+            return AngleAxis(angle, axis.normalizedVec3);
         }
+
         public static MyQuaternion Inverse(MyQuaternion rotation)
         {
             return new MyQuaternion(-rotation.x, -rotation.y, -rotation.z, rotation.w);
         }
+
         public static MyQuaternion Lerp(MyQuaternion a, MyQuaternion b, float t)
         {
             MyQuaternion result = identity;
@@ -201,9 +257,11 @@ namespace customMath
                 result.z = (timeLeft * a.z) - (t * b.z);
                 result.w = (timeLeft * a.w) - (t * b.w);
             }
+
             result.Normalize();
             return result;
         }
+
         public static MyQuaternion LerpUnclamped(MyQuaternion a, MyQuaternion b, float t)
         {
             MyQuaternion result = identity;
@@ -223,14 +281,16 @@ namespace customMath
                 result.z = (timeLeft * a.z) - (t * b.z);
                 result.w = (timeLeft * a.w) - (t * b.w);
             }
+
             result.Normalize();
             return result;
         }
-        public static MyQuaternion LookRotation(Vector3 forward)
+
+        public static MyQuaternion LookRotation(Vec3 forward)
         {
             forward.Normalize();
-            Vector3 right = Vector3.Normalize(Vector3.Cross(Vector3.up, forward));
-            Vector3 up = Vector3.Normalize(Vector3.Cross(forward, right));
+            Vec3 right = Vec3.Normalize(Vec3.Cross(Vec3.Up, forward));
+            Vec3 up = Vec3.Normalize(Vec3.Cross(forward, right));
 
             float m00 = right.x;
             float m01 = right.y;
@@ -256,6 +316,7 @@ namespace customMath
                 q.z = (m01 - m10) * num;
                 return q;
             }
+
             if (m00 >= m11 && m00 >= m22)
             {
                 float num = MathF.Sqrt(1 + m00 - m11 - m22);
@@ -266,6 +327,7 @@ namespace customMath
                 q.w = (m12 - m21) * num;
                 return q;
             }
+
             if (m11 > m22)
             {
                 float num = MathF.Sqrt(1 + m11 - m00 - m22);
@@ -285,11 +347,12 @@ namespace customMath
             q.w = (m01 - m10) * num1;
             return q;
         }
-        public static MyQuaternion LookRotation(Vector3 forward, [UnityEngine.Internal.DefaultValue("Vector3.up")] Vector3 upwards)
+
+        public static MyQuaternion LookRotation(Vec3 forward, [UnityEngine.Internal.DefaultValue("Vec3.up")] Vec3 upwards)
         {
             forward.Normalize();
-            Vector3 right = Vector3.Normalize(Vector3.Cross(upwards, forward));
-            upwards = Vector3.Normalize(Vector3.Cross(forward, right));
+            Vec3 right = Vec3.Normalize(Vec3.Cross(upwards, forward));
+            upwards = Vec3.Normalize(Vec3.Cross(forward, right));
             //Crea una matriz rotacion en base a los ejes y la devuelve a rotacion
             float m00 = right.x;
             float m01 = right.y;
@@ -300,7 +363,7 @@ namespace customMath
             float m20 = forward.x;
             float m21 = forward.y;
             float m22 = forward.z;
-            //Tambien se podría tratar mediante matriz 4x4, seteando una matriz en base a nuestros ejes y pedirle la rotation
+            //Tambien se podrï¿½a tratar mediante matriz 4x4, seteando una matriz en base a nuestros ejes y pedirle la rotation
 
             float diagonals = m00 + m11 + m22;
 
@@ -316,6 +379,7 @@ namespace customMath
                 q.z = (m01 - m10) * num;
                 return q;
             }
+
             if (m00 >= m11 && m00 >= m22)
             {
                 float num = MathF.Sqrt(1 + m00 - m11 - m22);
@@ -326,6 +390,7 @@ namespace customMath
                 q.w = (m12 - m21) * num;
                 return q;
             }
+
             if (m11 > m22)
             {
                 float num = MathF.Sqrt(1 + m11 - m00 - m22);
@@ -345,24 +410,29 @@ namespace customMath
             q.w = (m01 - m10) * num1;
             return q;
         }
+
         public static MyQuaternion Normalize(MyQuaternion q)
         {
             return new MyQuaternion(q.x / q.magnitude, q.y / q.magnitude, q.z / q.magnitude, q.w / q.magnitude);
         }
+
         public static MyQuaternion RotateTowards(MyQuaternion from, MyQuaternion to, float maxDegreesDelta)
         {
             if (Dot(from.normalized, to.normalized) >= 1 - kEpsilon || Dot(from.normalized, to.normalized) <= -1 + kEpsilon)
             {
                 return to;
             }
+
             float angle = Angle(from, to);
             return LerpUnclamped(from, to, maxDegreesDelta / angle);
         }
+
         public static MyQuaternion Slerp(MyQuaternion a, MyQuaternion b, float t)
         {
             t = Mathf.Clamp01(t);
             return SlerpUnclamped(a, b, t);
         }
+
         public static MyQuaternion SlerpUnclamped(MyQuaternion a, MyQuaternion b, float t)
         {
             float cosAngle = Dot(a, b);
@@ -384,6 +454,7 @@ namespace customMath
 
             return res;
         }
+
         public void Normalize()
         {
             float originalMagnitude = magnitude;
@@ -401,17 +472,19 @@ namespace customMath
             z = newZ;
             w = newW;
         }
-        public void SetFromToRotation(Vector3 fromDirection, Vector3 toDirection)
+
+        public void SetFromToRotation(Vec3 fromDirection, Vec3 toDirection)
         {
-            Vector3 axis = Vector3.Cross(fromDirection, toDirection);
-            float angle = Vector3.Angle(fromDirection, toDirection);
-            MyQuaternion result = AngleAxis(angle, axis.normalized);
+            Vec3 axis = Vec3.Cross(fromDirection, toDirection);
+            float angle = Vec3.Angle(fromDirection, toDirection);
+            MyQuaternion result = AngleAxis(angle, axis.normalizedVec3);
             x = result.x;
             y = result.y;
             z = result.z;
             w = result.w;
         }
-        public void SetLookRotation(Vector3 view)
+
+        public void SetLookRotation(Vec3 view)
         {
             MyQuaternion q = LookRotation(view);
 
@@ -420,7 +493,8 @@ namespace customMath
             this.z = q.z;
             this.w = q.w;
         }
-        public void SetLookRotation(Vector3 view, [UnityEngine.Internal.DefaultValue("Vector3.up")] Vector3 up)
+
+        public void SetLookRotation(Vec3 view, [UnityEngine.Internal.DefaultValue("Vec3.up")] Vec3 up)
         {
             MyQuaternion q = LookRotation(view, up);
 
@@ -429,23 +503,26 @@ namespace customMath
             this.z = q.z;
             this.w = q.w;
         }
-        public void ToAngleAxis(out float angle, out Vector3 axis)
+
+        public void ToAngleAxis(out float angle, out Vec3 axis)
         {
             Normalize();
             angle = 2.0f * Mathf.Acos(w) * Mathf.Rad2Deg;
             float mag = Mathf.Sqrt(1.0f - w * w);
             if (mag > 0.0001f)
             {
-                axis = new Vector3(x, y, z) / mag;
+                axis = new Vec3(x, y, z) / mag;
             }
             else
             {
-                axis = new Vector3(1, 0, 0);
+                axis = new Vec3(1, 0, 0);
             }
         }
+
         #endregion
 
         #region Internals
+
         public float this[int index]
         {
             get
@@ -464,15 +541,18 @@ namespace customMath
                 this.w = values[3];
             }
         }
+
         public bool Equals(MyQuaternion other)
         {
             return x == other.x && y == other.y && z == other.z && w == other.w;
         }
+
         public override bool Equals(object other)
         {
             if (!(other is MyQuaternion)) return false;
             return Equals((MyQuaternion)other);
         }
+
         public string ToString(string format, IFormatProvider formatProvider)
         {
             return $"{x}, {y}, {z}, {w}";
@@ -482,6 +562,7 @@ namespace customMath
         {
             return HashCode.Combine(x, y, z, w, eulerAngles, normalized);
         }
+
         #endregion
     }
 }
