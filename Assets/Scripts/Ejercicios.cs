@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using customMath;
+using CustomMath;
 
 public class Ejercicios : MonoBehaviour
 {
@@ -21,10 +21,10 @@ public class Ejercicios : MonoBehaviour
 
     #region ExerciseVariables
     private int offset = 10;
-    private Vector3 firstPoint;
-    private Vector3 secondPoint;
-    private Vector3 thirdPoint;
-    private Vector3 fourthPoint;
+    private Vec3 firstPoint;
+    private Vec3 secondPoint;
+    private Vec3 thirdPoint;
+    private Vec3 fourthPoint;
 
     MyQuaternion firstExerciseRotation = MyQuaternion.identity;
     MyQuaternion secondExerciseRotation = MyQuaternion.identity;
@@ -94,11 +94,11 @@ public class Ejercicios : MonoBehaviour
         switch (currentExercise)
         {
             case EjerciciosEnum.Uno:
-                firstExerciseRotation *= MyQuaternion.AngleAxis(angle, Vector3.up);
+                firstExerciseRotation *= MyQuaternion.AngleAxis(angle, Vec3.Up);
                 SetVector(firstExerciseRotation * firstPoint, ref firstLine);
                 break;
             case EjerciciosEnum.Dos:
-                secondExerciseRotation *= MyQuaternion.AngleAxis(angle, Vector3.up);
+                secondExerciseRotation *= MyQuaternion.AngleAxis(angle, Vec3.Up);
 
                 firstPointRes = secondExerciseRotation * firstPoint;
                 secondPointRes = secondExerciseRotation * secondPoint;
@@ -123,8 +123,8 @@ public class Ejercicios : MonoBehaviour
 
     private void SetPointsDefaultValues()
     {
-        Vector3 horizontalOffset = new Vector3(offset, 0, 0);
-        Vector3 verticalOffset = new Vector3(0, offset, 0);
+        Vec3 horizontalOffset = new Vec3(offset, 0, 0);
+        Vec3 verticalOffset = new Vec3(0, offset, 0);
         firstPoint = horizontalOffset;
         secondPoint = firstPoint + verticalOffset;
         thirdPoint = secondPoint + horizontalOffset;

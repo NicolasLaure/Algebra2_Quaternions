@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using customMath;
+using CustomMath;
 
 public class Tester : MonoBehaviour
 {
@@ -35,6 +35,7 @@ public class Tester : MonoBehaviour
         res = myQuatA;
         result = quaternionA;
     }
+
     private void Update()
     {
         TestQuaternion();
@@ -55,8 +56,8 @@ public class Tester : MonoBehaviour
         //quaternionObject.transform.rotation = result;
 
 
-        Debug.Log($"My Look Rotation: {MyQuaternion.LookRotation(forward, upwards)}");
-        Debug.Log($"Unity Look Rotation: {Quaternion.LookRotation(forward, upwards)}");
+        Debug.Log($"My Look Rotation: {MyQuaternion.LookRotation(new Vec3(forward), new Vec3(upwards))}");
+        Debug.Log($"Unity Look Rotation: {Quaternion.LookRotation(new Vec3(forward), new Vec3(upwards))}");
 
         //Debug.Log($"MyQuaternion based on euler angles returns: {myQuatA}");
         //Debug.Log($"Quaternion based on euler angles returns: {quaternionA}");
